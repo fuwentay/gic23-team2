@@ -31,3 +31,10 @@ def getMonthlyReturnsInstruments(lowerDate, upperDate):
         return get_total_investment_returns_instruments(lowerDate, upperDate)
     else:
         return unsupported_method()
+    
+@analytics_blueprint.route("/returns/top/<N>", methods=['GET'])
+def getTopN(N):
+    if request.method == "GET":
+        return get_top_N(int(N))
+    else:
+        return unsupported_method()

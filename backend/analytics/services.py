@@ -204,6 +204,47 @@ def get_total_investment_returns_instruments(lowerDate, upperDate):
 
     return make_json_response(json_util.dumps(returns), 200)
 
+def get_top_N(N):
+    pipeline = [
+        {
+            "$sort": {
+                "reportedDate": 1
+            }
+        },
+        {
+            "$group": {
+                "_id": "$fundId",
+                "marketValue": {"$first": "$marketValue"}
+            }
+        },
+    ]
+
+    old_market_values = list(positionsCollection.aggregate(pipeline))
+    pipeline = [
+        {
+            "$sort": {
+                "reportedDate": -1
+            }
+        },
+        {
+            "$group": {
+                "_id": "$fundId",
+                "marketValue": {"$first": "$marketValue"},
+            }
+        },
+    ]
+    latest_market_values = list(positionsCollection.aggregate(pipeline))
+    returns = {}
+
+    for oldFund in old_market_values:
+        for newFund in latest_market_values:
+            if oldFund["_id"] == newFund["_id"]:
+                returns[oldFund["_id"]] = newFund["marketValue"]/oldFund["marketValue"] - 1
+
+    topN = dict(sorted(returns.items(), key=lambda item: item[1], reverse=True)[:N])
+
+    return make_json_response(json_util.dumps(topN), 200)
+
 def get_all(collection):
     cursor = collection.find()
     return make_json_response(json_util.dumps(cursor), 200)
