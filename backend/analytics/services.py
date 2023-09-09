@@ -41,7 +41,7 @@ def get_latest_instrument_price(document, upperBoundDate, priceCollection):
                                 "isinCode": document["isinCode"] if "isinCode" in document else document["symbol"]
                             },
                             {
-                                "SYMBOL": document["symbol"] if "symbol" in document else document["isinCode"]
+                                "symbol": document["symbol"] if "symbol" in document else document["isinCode"]
                             }
                         ]
                     },

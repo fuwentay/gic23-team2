@@ -1,13 +1,11 @@
-import csv
-import json
-import requests
 from flask import make_response
 from bson import json_util
-from bson.objectid import ObjectId
 from .fileParser import *
+from .fileUtils import *
 from response import make_json_response
 import pandas as pd
 import os
+import shutil
 from database import db
 from dateutil import parser
 from datetime import datetime
@@ -15,6 +13,7 @@ import sqlite3
 
 collection2 = db.chatbot_input
 collection_f = db.fund
+instrumentsCollection = db.instruments
 
 def insert_from_db(file, instrumentsCollection, priceCollection):
     dbData = read_from_db(file)
@@ -64,25 +63,7 @@ def read_from_db(dbFile):
     
     return data
 
-def getFundId(file_path):
-    cursor = collection_f.find()
-    # Iterate through the cursor to access each document
-    for document in cursor:
-        fund_value = document["fund"]
-        if fund_value in file_path:
-            # returns a string. not sure which is preferred.
-            return document["fundId"]
-        
-def getFund(file_path):
-    cursor = collection_f.find()
-    # Iterate through the cursor to access each document
-    for document in cursor:
-        fund_value = document["fund"]
-        if fund_value in file_path:
-            # returns a string. not sure which is preferred.
-            return document["fund"]
-
-# def getFundId(file_path):
+# def get_fund_id(file_path):
 #     dictFund = {'Trustmind':1, 'Virtous':2, 'Wallington':3, 'Gohen':4, 'Catalysm':5, 'Belaware': 6, 'Whitestone': 7, 'Leeder': 8, 'Magnum': 9, 'Applebead': 10}
 #     for i in dictFund:
 #         if i in file_path:
@@ -100,9 +81,16 @@ def mapInstrumentType(instrument_type):
     dictInstrument = {'Equities': 1, 'Government Bond': 2, 'CASH': 3}
     return dictInstrument.get(instrument_type, None)
 
+def map_instrument_id(symbol):
+    document = instrumentsCollection.find_one({ "symbol": symbol })
+    if document:
+        return document["_id"]
+    else:
+        return instrumentsCollection.find_one({ "isinCode": symbol })
 
-def getReportedDate(file_path):
-    split_path = file_path.split(".")[1]
+
+def get_reported_date(file_path):
+    split_path = file_path.split(".")[-2]
     splitted_path = split_path.split()[0]
     try:
         date = parser.parse(splitted_path)
@@ -140,20 +128,17 @@ def read_from_csv(file_path):
 
     # Adding fundId attribute
     new_column_header_fundId = 'fundId'
-    new_column_value_fundId = getFundId(file_path)
+    new_column_value_fundId = get_fund_id(file_path, collection_f)
     df[new_column_header_fundId] = new_column_value_fundId
 
     # Add fund attribute
     new_column_header_fund = 'fund'
-    new_column_value_fund = getFund(file_path)
+    new_column_value_fund = get_fund_name(file_path)
     df[new_column_header_fund] = new_column_value_fund 
-
-    # Adding instrumentId attribute
-    df['instrumentId'] = df['instrumentType'].apply(mapInstrumentType)
 
     # Adding reportedDate attribute
     new_column_header_date = 'reportedDate'
-    new_column_value_date = getReportedDate(file_path)
+    new_column_value_date = get_reported_date(file_path)
     df[new_column_header_date] = new_column_value_date
 
     # Adding createdAt and modifiedAt attribute
@@ -165,25 +150,28 @@ def read_from_csv(file_path):
     df[new_column_header_createdAt] = new_column_value_createdmodified
     df[new_column_header_modifiedAt] = new_column_value_createdmodified
 
+    # Adding instrumentId attribute
+    df['instrumentId'] = df['symbol'].apply(map_instrument_id)
+
     data_dict = df.to_dict(orient='records')
+
+    destination_path = os.path.join(os.path.dirname(__file__), "../inputs/expired")
+    shutil.move(file_path, destination_path)
 
     return data_dict
 
 
 def csv_to_db(collection):
-    # # Check if the folder path exists
-    folder_path = "backend\inputs"
-    if os.path.exists(folder_path):
-        # Iterate through the files in the folder and upload them to MongoDB
-        for filename in os.listdir(folder_path):
-            file_path = os.path.join(folder_path, filename)
-            if os.path.isfile(file_path):
-                json_file = read_from_csv(file_path)
-                collection.insert_many(json_file)
-                print(f"Uploaded: {filename}")
-        return "Successful"
-    else:
-        print(f"The specified folder '{folder_path}' does not exist.")
+    folder_path = get_input_folder()
+    input_files = get_input_files()
+    
+    for filename in input_files:
+        file_path = os.path.join(folder_path, filename)
+        if os.path.isfile(file_path):
+            json_file = read_from_csv(file_path)
+            collection.insert_many(json_file)
+            # print(f"Uploaded: {filename}")
+    return make_json_response("Uploaded successfully", 500)
 
 
 def parse_and_insert_instrument(rows, instrumentsCollection, instrumentType):    
@@ -214,7 +202,8 @@ def parse_and_insert_price(rows, priceCollection):
     key_mapping = {
         'DATETIME': 'reportedDate', 
         'ISIN': 'isinCode', 
-        'PRICE': "unitPrice"
+        'PRICE': "unitPrice",
+        'SYMBOL': "symbol"
     }
     
     for i in range(len(rows)):
@@ -235,10 +224,6 @@ def delete_all(collection):
         return make_json_response(f"Deleted {deleted_count} documents successfully", 200)
     except Exception as e:
         return make_json_response(str(e), 500)
-
-
-def unsupported_method():
-    return make_json_response("Request type not supported", 400)
 
 # # inserts pandas df to db.chatbot and json to db.ingest
 # def insert_from_file_pd(request, collection):

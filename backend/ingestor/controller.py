@@ -25,16 +25,9 @@ def insertFromApi():
 @ingestor_blueprint.route("/insertFromDb", methods=["POST"])
 def insertFromDb():
     if request.method == "POST":
-        relative_path = "../inputs/master-reference.db"
+        relative_path = "../inputs_db/master-reference.db"
         file_path = os.path.join(os.path.dirname(__file__), relative_path)
         return insert_from_db(file_path, instrumentsCollection, priceCollection)
-    else:
-        return unsupported_method()
-
-@ingestor_blueprint.route("/deleteAll", methods=["POST"])
-def deleteAll():
-    if request.method == "POST":
-        return delete_all(collection)
     else:
         return unsupported_method()
 
