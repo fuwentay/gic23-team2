@@ -31,6 +31,8 @@
     "chroma-js": "^2.1.2",
     "clsx": "^1.1.1",
     "dayjs": "^1.11.9",
+    "highcharts": "^11.1.0",
+    "highcharts-react-official": "^3.2.1",
     "jss": "^10.7.1",
     "jss-rtl": "^0.3.0",
     "prop-types": "^15.7.2",

@@ -24,11 +24,58 @@ import OrderOverview from "layouts/dashboard/components/OrderOverview";
 // Data
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
-
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 
 function Dashboard() {
   const { size } = typography;
   const { chart, items } = reportsBarChartData;
+  const options = {
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: 'pie'
+    },
+    title: {
+      text: 'Browser market shares in May, 2020',
+      align: 'left'
+    },
+    tooltip: {
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+      point: {
+        valueSuffix: '%'
+      }
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+        }
+      }
+    },
+    series: [{
+      name: 'Brands',
+      colorByPoint: true,
+      data: [
+        { name: 'Chrome', y: 70.67, sliced: true, selected: true },
+        { name: 'Edge', y: 14.77 },
+        { name: 'Firefox', y: 4.86 },
+        { name: 'Safari', y: 2.63 },
+        { name: 'Internet Explorer', y: 1.53 },
+        { name: 'Opera', y: 1.40 },
+        { name: 'Sogou Explorer', y: 0.84 },
+        { name: 'QQ', y: 0.51 },
+        { name: 'Other', y: 2.6 },
+      ]
+    }]
+  };
+  
 
   return (
     <DashboardLayout>
@@ -75,16 +122,11 @@ function Dashboard() {
         </SuiBox> */}
 
         <SuiBox mb={3}>
-          <iframe
-            style={{ background: "#FFFFFF", border: "none", borderRadius: 2, boxShadow: "0 2px 10px 0 rgba(70, 76, 79, .2)" }}
-            width="480"
-            height="480"
-            src="https://charts.mongodb.com/charts-gic-hackathon-2023-jvtlb/embed/charts?id=64f87759-7568-4bd9-8927-15bdf9aaa358&maxDataAge=60&theme=light&autoRefresh=true" />
-          <iframe
-            style={{ background: "#FFFFFF", border: "none", borderRadius: 2, boxShadow: "0 2px 10px 0 rgba(70, 76, 79, .2)", marginLeft: 20 }}
-            width="480"
-            height="480"
-            src="https://charts.mongodb.com/charts-gic-hackathon-2023-jvtlb/embed/charts?id=64f87935-8acd-4df8-88ba-887bef8f138b&maxDataAge=60&theme=light&autoRefresh=true" />
+        <HighchartsReact
+        highcharts={Highcharts}
+        options={options}
+      />
+
         </SuiBox>
         {/* <SuiBox mb={3}>
           <Grid container spacing={3}>

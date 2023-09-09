@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 
 from ingestor.controller import ingestor_blueprint
-from chatbot_response.controller import chatbot_blueprint
+from anthropic.controller import chatbot_blueprint
 from instruments.controller import instruments_blueprint
 from price_values.controller import price_values_blueprint
 from funds.controller import funds_blueprint

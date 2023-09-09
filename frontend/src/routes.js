@@ -38,7 +38,7 @@ Coded by www.creative-tim.com
 // Soft UI Dashboard React layouts
 import Dashboard from "layouts/dashboard";
 import Positions from "layouts/positions";
-import Tables from "layouts/tables";
+import Tables from "layouts/instruments";
 import Analytics from "layouts/analytics";
 import Profile from "layouts/profile";
 import Chatbot from "layouts/chatbot";
@@ -97,35 +97,6 @@ const routes = [
     route: "/chatbot",
     icon: <Settings size="12px" />,
     component: Chatbot,
-    noCollapse: true,
-  },
-
-  { type: "title", title: "Account Pages", key: "account-pages" },
-  {
-    type: "collapse",
-    name: "Profile",
-    key: "profile",
-    route: "/profile",
-    icon: <CustomerSupport size="12px" />,
-    component: Profile,
-    noCollapse: true,
-  },
-  {
-    type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
-    route: "/authentication/sign-in",
-    icon: <Document size="12px" />,
-    component: SignIn,
-    noCollapse: true,
-  },
-  {
-    type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
-    route: "/authentication/sign-up",
-    icon: <SpaceShip size="12px" />,
-    component: SignUp,
     noCollapse: true,
   },
 ];

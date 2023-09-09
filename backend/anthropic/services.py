@@ -39,16 +39,16 @@ def call_anthropic(question):
             raise Exception(f"Error: {response.status} - {response.data}")
         # print(response.data)
         generated_text = json.loads(response.data)["completion"].strip()
-        print(generated_text)
         return generated_text
     except Exception as err:
         print(err)
         raise
 
-question = "Where is Singapore?"
-# prompt template for Anthropic - see this page for more info: 
-# https://docs.anthropic.com/claude/docs/constructing-a-prompt#use-the-correct-format
+    question = "Where is Singapore?"
+    # prompt template for Anthropic - see this page for more info: 
+    # https://docs.anthropic.com/claude/docs/constructing-a-prompt#use-the-correct-format
 
-generated_text = call_anthropic(question)
-# print(f"Prompt: {prompt}")
-# print(json.dumps(generated_text))
+    generated_text = call_anthropic(question)
+    return generated_text
+    # print(f"Prompt: {prompt}")
+    # print(json.dumps(generated_text))
