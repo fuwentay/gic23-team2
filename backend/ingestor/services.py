@@ -11,6 +11,7 @@ import os
 from database import db
 from dateutil import parser
 from datetime import datetime
+import sqlite3
 
 collection2 = db.chatbot_input
 collection_f = db.fund
@@ -185,7 +186,7 @@ def csv_to_db(collection):
         print(f"The specified folder '{folder_path}' does not exist.")
 
 
-def parse_and_insert_instrument(rows, collection, instrumentType):    
+def parse_and_insert_instrument(rows, instrumentsCollection, instrumentType):    
     key_mapping = {
         'SYMBOL': 'symbol',
         'COUNTRY': 'country',
@@ -199,26 +200,17 @@ def parse_and_insert_instrument(rows, collection, instrumentType):
         'MATURITY DATE': 'maturityDate',
         'COUPON FREQUENCY': 'couponFrequency'
     }   
-    instruments = {}
     for i in range(len(rows)):
-        row = {key_mapping.get(key, key): value for key, value in rows[i].items()}
-        instrumentName = get_instrument_name(row["instrumentName"])
-        if instrumentName in instruments:
-            continue
-        del row["coupon"]
-        del row["maturityDate"]
-        del row["couponFrequency"]
-        row["instrumentName"] = instrumentName
-        row["createdAt"] = datetime.now()
-        row["modifiedAt"] = datetime.now()
-        row["instrumentType"] = instrumentType
-        instruments[instrumentName] = row
-    insertManyResult = collection.insert_many(list(instruments))
-    insertedRowsCursor = collection.find({"_id": {"$in": insertManyResult.inserted_ids}})
+        rows[i] = {key_mapping.get(key, key): value for key, value in rows[i].items()}
+        rows[i]["createdAt"] = datetime.now()
+        rows[i]["modifiedAt"] = datetime.now()
+        rows[i]["instrumentType"] = instrumentType
+    insertManyResult = instrumentsCollection.insert_many(rows)
+    insertedRowsCursor = instrumentsCollection.find({"_id": {"$in": insertManyResult.inserted_ids}})
     
     return json_util.dumps(list(insertedRowsCursor))    
 
-def parse_and_insert_price(rows, collection): 
+def parse_and_insert_price(rows, priceCollection): 
     key_mapping = {
         'DATETIME': 'reportedDate', 
         'ISIN': 'isinCode', 
@@ -229,20 +221,10 @@ def parse_and_insert_price(rows, collection):
         rows[i] = {key_mapping.get(key, key): value for key, value in rows[i].items()}
         rows[i]["createdAt"] = datetime.now()
         rows[i]["modifiedAt"] = datetime.now()
-    insertManyResult = collection.insert_many(rows)
-    insertedRowsCursor = collection.find({"_id": {"$in": insertManyResult.inserted_ids}})
+    insertManyResult = priceCollection.insert_many(rows)
+    insertedRowsCursor = priceCollection.find({"_id": {"$in": insertManyResult.inserted_ids}})
     
     return json_util.dumps(list(insertedRowsCursor))   
-
-def get_instrument_name(securityName):
-    percentIndex = find_first_digit_index(securityName)
-    return securityName[:percentIndex-1]
-
-def find_first_digit_index(s):
-    for index, char in enumerate(s):
-        if char.isdigit():
-            return index
-    return -1
 
 # Calculations of Market Value, Investment Return
 

@@ -8,7 +8,6 @@ import SuiBox from "components/SuiBox";
 function Chatbot() {
   return (
     <DashboardLayout>
-      <DashboardNavbar />
       <SuiBox>
       <ChatUI/>
       </SuiBox>

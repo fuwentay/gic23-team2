@@ -30,8 +30,9 @@ import SuiButton from "components/SuiButton";
 import { useState } from 'react';
 import ImportPopup from "./components/ImportPopup";
 import FilterSortTable from "../../components/FilterSortTable"
+import Table from "./components/Table";
 
-function Tables() {
+function Instruments() {
   const classes = styles();
   const [open, setOpen] = useState(false);
   const [insertedRows, setInsertedRows] = useState([]);
@@ -51,38 +52,9 @@ function Tables() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <SuiBox display="flex">
-        <SuiButton
-          component="a"
-          target="_blank"
-          rel="noreferrer"
-          variant="gradient"
-          buttonColor="info"
-          style={{ marginRight: '1.4rem' }}
-          onClick={handleOpen}>
-          Upload Data
-        </SuiButton>
-
-        <ImportPopup
-          open={open}
-          handleClose={handleClose}
-          setInsertedRows={setInsertedRows} />
-
-      </SuiBox>
-      <SuiBox py={3}>
-        <SuiBox mb={3}>
-          <Card>
-            <SuiBox customClass={classes.tables_table}>
-              <FilterSortTable
-                title="Inserted Rows"
-                headers={getColumns()}
-                rows={insertedRows} />
-            </SuiBox>
-          </Card>
-        </SuiBox>
-      </SuiBox>
+      <Table></Table>
     </DashboardLayout>
   );
 }
 
-export default Tables;
+export default Instruments;

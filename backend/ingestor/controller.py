@@ -1,6 +1,7 @@
 from .services import *
 from flask import Blueprint, request
 from database import db
+from response import unsupported_method
 
 ingestor_blueprint = Blueprint("ingest", __name__)
 instrumentsCollection = db.instruments
@@ -21,7 +22,7 @@ def insertFromApi():
     else:
         return unsupported_method()
 
-@ingestor_blueprint.route("/insertFromDb", methods=["GET"])
+@ingestor_blueprint.route("/insertFromDb", methods=["POST"])
 def insertFromDb():
     if request.method == "POST":
         relative_path = "../inputs/master-reference.db"

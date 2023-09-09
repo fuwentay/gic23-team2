@@ -69,5 +69,11 @@ export default makeStyles(({ palette, functions, typography, boxShadows }) => {
     suiAvatar_boxShadow: {
       boxShadow: ({ boxShadow }) => boxShadows[boxShadow],
     },
+
+    suiAvatar_floatBottomRight: {
+      position: 'absolute',
+      bottom: '16px',
+      right: '16px',
+    },
   };
 });
