@@ -27,7 +27,7 @@ import OrderOverview from "layouts/dashboard/components/OrderOverview";
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
 
-import Table from "../tables/components/Table.js"
+import Table from "../instruments/components/Table"
 
 function Positions() {
   const { size } = typography;

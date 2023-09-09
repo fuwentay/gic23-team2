@@ -1,7 +1,6 @@
 // @mui material components
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import { Button } from '@mui/material';
 
 // Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
@@ -13,7 +12,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Table from "examples/Table";
 
 // Custom styles for the Tables
-import styles from "layouts/tables/styles";
+import styles from "layouts/instruments/styles";
 
 // Data
 import instrumentTable from "layouts/analytics/data/instrumentTable";
@@ -28,15 +27,12 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import Box from '@mui/material/Box';
 
 
-import TableComponent from "../tables/components/Table";
-import SuiButton from "components/SuiButton";
+import TableComponent from "../instruments/components/Table";
 
-import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import ChatbotButton from "./components/ChatbotButton";
 import DetailsCard from "./components/detailsCard";
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -49,7 +45,7 @@ function Analytics() {
   const [country, setCountry] = React.useState('');
   const [sector, setSector] = React.useState('');
   const [isCardOpen, setCardOpen] = useState(false);
-  const [topn, setTopn] = React.useState('');
+  const [topn, setTopn] = React.useState('10');
 
   const handleChange = (event) => {
     setTopn(event.target.value);
