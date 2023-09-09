@@ -3,7 +3,7 @@ from flask import Blueprint, request
 from database import db
 
 price_values_blueprint = Blueprint("price_values", __name__)
-priceCollection = db.prices
+priceCollection = db.price
 instrumentsCollection = db.instruments
 
 @price_values_blueprint.route("/<id>", methods=['GET'])
