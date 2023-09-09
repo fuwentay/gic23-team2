@@ -1,6 +1,7 @@
 // @mui material components
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
+import { Button } from '@mui/material';
 
 // Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
@@ -28,17 +29,17 @@ import Box from '@mui/material/Box';
 
 
 import TableComponent from "../tables/components/Table";
-import detailsCard from "./components/detailsCard.js";
-import ChatUI from "../chatbot/components/ChatUI";
-import Button from '@mui/material';
 import SuiButton from "components/SuiButton";
 
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import SuiAvatar from "components/SuiAvatar";
-import chatbot from "assets/images/chatbot-logo.png";
-
+import ChatbotButton from "./components/ChatbotButton";
+import DetailsCard from "./components/detailsCard";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 function Analytics() {
   const classes = styles();
@@ -48,6 +49,11 @@ function Analytics() {
   const [country, setCountry] = React.useState('');
   const [sector, setSector] = React.useState('');
   const [isCardOpen, setCardOpen] = useState(false);
+  const [topn, setTopn] = React.useState('');
+
+  const handleChange = (event) => {
+    setTopn(event.target.value);
+  };
 
   const handleChangeInstrument = (event) => {
     setInstrument(event.target.value);
@@ -61,7 +67,7 @@ function Analytics() {
     setSector(event.target.value);
   };
 
-  const handleAvatarClick = () => {
+  const handleChatbotClick = () => {
     setCardOpen(prevState => !prevState);
   };
 
@@ -71,10 +77,74 @@ function Analytics() {
       <SuiBox py={3}>
         <SuiBox mb={3}>
           <Card>
+            <SuiBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+              <Box>
+                <SuiTypography variant="h5" fontWeight="bold" >
+                  Aggregated View
+                </SuiTypography>
+                <Box sx={{ marginLeft: "10px", marginTop: "12px" }}>
+                  <Box sx={{ minWidth: 100, display: 'flex', flexDirection: 'row' }}>
+                    <FormControlLabel control={<Checkbox defaultChecked />} label="Instruments" />
+                    <FormControlLabel control={<Checkbox defaultChecked />} label="Country" />
+                    <FormControlLabel control={<Checkbox defaultChecked />} label="Sector" />
+                  </Box>
+                </Box>
+              </Box>
 
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['DesktopDatePicker']}>
+                  <DemoItem label="Start Date" sx={{ mb: "2px" }} >
+                    <DesktopDatePicker defaultValue={dayjs()} />
+                  </DemoItem>
+                  <DemoItem label="End Date">
+                    <DesktopDatePicker defaultValue={dayjs()} />
+                  </DemoItem>
+                </DemoContainer>
+              </LocalizationProvider>
+            </SuiBox>
+
+            <SuiBox>
+              <Card style={{ borderRadius: 0 }}>
+                <TableComponent></TableComponent>
+                <ChatbotButton></ChatbotButton>
+                <SuiBox sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: "0px" }} >
+                </SuiBox>
+              </Card>
+
+            </SuiBox>
+            <Card style={{ borderRadius: 0 }}>
+              <SuiBox>
+                <TableComponent></TableComponent>
+                <ChatbotButton></ChatbotButton>
+              </SuiBox>
+            </Card>
+            <Card style={{ borderRadius: 0, boxShadow: 'none' }}>
+              <SuiBox mb={0}>
+                <TableComponent></TableComponent>
+                <ChatbotButton></ChatbotButton>
+              </SuiBox>
+            </Card>
+
+            <SuiBox mb={3}>
+              <Grid container spacing={3}>
+                <Grid item xs={8}>
+                  <Card className="h-100" style={{ paddingLeft: '10px' }}>
+                  </Card>
+                </Grid>
+                <Grid item xs={4}>
+                  <detailsCard></detailsCard>
+                </Grid>
+              </Grid>
+            </SuiBox>
+
+          </Card>
+        </SuiBox>
+        <SuiBox mb={3}>
+
+          <Card>
             <SuiBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
               <SuiTypography variant="h5" fontWeight="bold" >
-                Aggregated View
+                Monthly Overview
               </SuiTypography>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DesktopDatePicker']}>
@@ -86,75 +156,48 @@ function Analytics() {
                   </DemoItem>
                 </DemoContainer>
               </LocalizationProvider>
-              <Box>
-                <Box sx={{ minWidth: 120, display: 'flex', flexDirection: 'row' }}>
-                  <FormControlLabel control={<Checkbox defaultChecked />} label="All" />
-                  <FormControlLabel control={<Checkbox defaultChecked />} label="Instruments" />
-                  <FormControlLabel control={<Checkbox defaultChecked />} label="Country" />
-                  <FormControlLabel control={<Checkbox defaultChecked />} label="Sector" />
-                </Box>
+            </SuiBox>
+            <SuiTypography >
+              ----bar chart? both Instrument and Fund
+            </SuiTypography>
+          </Card>
+        </SuiBox>
+
+        <SuiBox mb={3}>
+          <Card>
+            <SuiBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+              <SuiTypography variant="h5" fontWeight="bold" >
+                Ranking
+              </SuiTypography>
+              <Box sx={{ marginLeft: "10px", marginTop: "12px" }}>
+                <FormControl fullWidth>
+                <DemoItem label="Top N"></DemoItem>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={topn}
+                    label="Top N"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>10</MenuItem>
+                    <MenuItem value={20}>20</MenuItem>
+                    <MenuItem value={30}>30</MenuItem>
+                  </Select>
+                </FormControl>
               </Box>
             </SuiBox>
-
-            <SuiBox mb={3}>
-              <TableComponent></TableComponent>
-              <SuiAvatar src={chatbot}
-                alt="profile-image"
-                customClass="shadow-sm sui-avatar"
-                floatBottomRight
-                onClick={() => { handleAvatarClick }} // New onClick handler
-              />
-              {isCardOpen && (
-                <Card>
-                  <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                      This is the content of the new card.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              )}
+            <SuiBox customClass={classes.tables_table}>
+              <Table columns={prCols} rows={prRows} />
             </SuiBox>
-            <SuiBox mb={3}>
-              <TableComponent></TableComponent>
-            </SuiBox>
-            <SuiBox mb={3}>
-              <TableComponent></TableComponent>
-            </SuiBox>
-
-            <SuiBox mb={3}>
-              <Grid container spacing={3}>
-                <Grid item xs={8}>
-                  <Card className="h-100" style={{ paddingLeft: '10px' }}>
-                  </Card>
-                </Grid>
-
-                <Grid item xs={4}>
-                  <detailsCard></detailsCard>
-                </Grid>
-
-              </Grid>
-
-            </SuiBox>
+            <ChatbotButton></ChatbotButton>
           </Card>
-
         </SuiBox>
 
 
-        <Card>
-          <SuiBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-            <SuiTypography variant="h5" fontWeight="bold" >
-              Instrument Peformance
-            </SuiTypography>
-          </SuiBox>
-          <SuiBox customClass={classes.tables_table}>
-            <Table columns={prCols} rows={prRows} />
-          </SuiBox>
-        </Card>
 
-        <detailsCard></detailsCard>
-        <ChatUI></ChatUI>
-      </SuiBox>
-    </DashboardLayout>
+        <DetailsCard></DetailsCard>
+      </SuiBox >
+    </DashboardLayout >
   );
 }
 
