@@ -1,6 +1,7 @@
 from .services import *
 from flask import Blueprint, request
 from database import db
+from response import unsupported_method
 
 ingestor_blueprint = Blueprint("ingest", __name__)
 instrumentsCollection = db.instruments
