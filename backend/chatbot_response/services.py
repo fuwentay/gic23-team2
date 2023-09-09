@@ -1,4 +1,4 @@
-from langchain.llms import OpenAI
+# from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
 from langchain.agents.agent_types import AgentType
 from langchain.agents import create_csv_agent
@@ -23,6 +23,18 @@ import boto3
 from botocore.exceptions import ClientError
 from dotenv import load_dotenv
 import csv
+
+from pydantic import BaseModel, model_validator
+
+class Model(BaseModel):
+    x: str = 1
+
+    @model_validator('x', always=True)
+    @classmethod
+    def validate_x(cls, v):
+        return v
+
+Model()
 
 collection = db.chatbot_input
 
