@@ -67,6 +67,12 @@ def getFundId(file_path):
     for i in dictFund:
         if i in file_path:
             return dictFund[i]
+        
+def getFund(file_path):
+    dictFund = {'Trustmind':1, 'Virtous':2, 'Wallington':3, 'Gohen':4, 'Catalysm':5, 'Belaware': 6, 'Whitestone': 7, 'Leeder': 8, 'Magnum': 9, 'Applebead': 10}
+    for i in dictFund:
+        if i in file_path:
+            return i
 
 # determine instrumentId
 def mapInstrumentType(instrument_type):
@@ -89,18 +95,23 @@ def read_from_csv(file_path):
     df = pd.read_csv(csv_file_path)
 
     # Create a dictionary for renaming columns
-    column_mapping = {'FINANCIAL TYPE': 'financialType', 'SYMBOL': 'symbol', 'SECURITY NAME': 'securityName', 'PRICE': 'price', 'QUANTITY': 'quantity', 'REALISED P/L': 'realisedProfitLoss', 'MARKET VALUE': 'marketValue'}
+    column_mapping = {'FINANCIAL TYPE': 'instrumentType', 'SYMBOL': 'symbol', 'SECURITY NAME': 'securityName', 'PRICE': 'price', 'QUANTITY': 'quantity', 'REALISED P/L': 'realisedProfitLoss', 'MARKET VALUE': 'marketValue'}
 
     # Use the rename method to rename columns
     df.rename(columns=column_mapping, inplace=True)
 
     # Adding fundId attribute
-    new_column_header = 'fundId'
-    new_column_value = getFundId(file_path)
-    df[new_column_header] = new_column_value
+    new_column_header_fundId = 'fundId'
+    new_column_value_fundId = getFundId(file_path)
+    df[new_column_header_fundId] = new_column_value_fundId
+
+    # Add fund attribute
+    new_column_header_fund = 'fund'
+    new_column_value_fund = getFund(file_path)
+    df[new_column_header_fund] = new_column_value_fund 
 
     # Adding instrumentId attribute
-    df['instrumentId'] = df['financialType'].apply(mapInstrumentType)
+    df['instrumentId'] = df['instrumentType'].apply(mapInstrumentType)
 
     # Adding reportedDate attribute
     new_column_header_date = 'reportedDate'
