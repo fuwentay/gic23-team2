@@ -160,4 +160,6 @@ def parse_and_insert_price(rows, collection):
     insertManyResult = collection.insert_many(rows)
     insertedRowsCursor = collection.find({"_id": {"$in": insertManyResult.inserted_ids}})
     
-    return json_util.dumps(list(insertedRowsCursor))    
+    return json_util.dumps(list(insertedRowsCursor))   
+
+# Calculations of Market Value, Investment Return

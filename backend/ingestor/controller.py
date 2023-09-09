@@ -20,10 +20,10 @@ def insertFromApi():
     else:
         return unsupported_method()
 
-@ingestor_blueprint.route("/insertFromDb", methods=["POST"])
+@ingestor_blueprint.route("/insertFromDb", methods=["GET"])
 def insertFromDb():
-    if request.method == "POST":
-        return insert_from_db("/Users/liaugwayne/Desktop/2023-app-2/backend/inputs/master-reference.db", instrumentsCollection, priceCollection)
+    if request.method == "GET":
+        return insert_from_db("/Users/solivagant_ss/Documents/GitHub/2023-app-2/backend/inputs/master-reference.db", instrumentsCollection, priceCollection)
     else:
         return unsupported_method()
 
