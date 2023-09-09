@@ -24,12 +24,12 @@ from botocore.exceptions import ClientError
 from dotenv import load_dotenv
 import csv
 
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, model_validator
 
 class Model(BaseModel):
     x: str = 1
 
-    @validator('x', always=True)
+    @model_validator('x', always=True)
     @classmethod
     def validate_x(cls, v):
         return v
