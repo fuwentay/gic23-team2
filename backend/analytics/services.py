@@ -1,11 +1,71 @@
-import csv
-import json
 from bson import json_util
 from bson.objectid import ObjectId
 from response import make_json_response
 
-from database import db
-collection2 = db.positions
+def get_fund_aggregate(fundId, upperBoundDate, aggregateKey, positionsCollection, priceCollection):
+    pipeline = [
+        {
+            "$match": {
+                # "fundId": fundId,
+                "reportedDate": {"$lt": upperBoundDate}
+            }
+        }
+    ]
+
+    match_result = list(positionsCollection.aggregate(pipeline))
+    aggregated_dict = {}
+    for doc in match_result:
+        if doc[aggregateKey] in aggregated_dict:
+            if doc["instrumentType"] == "CASH":
+                aggregated_dict[doc[aggregateKey]] += doc["marketValue"]
+                continue
+            # aggregated_dict[doc[aggregateKey]] += doc["quantity"] * get_latest_instrument_price(doc, upperBoundDate, priceCollection)
+            aggregated_dict[doc[aggregateKey]] += doc["marketValue"]
+        else:
+            if doc["instrumentType"] == "CASH":
+                aggregated_dict[doc[aggregateKey]] = doc["marketValue"]
+                continue
+            # aggregated_dict[doc[aggregateKey]] = doc["quantity"] * get_latest_instrument_price(doc, upperBoundDate, priceCollection)
+            aggregated_dict[doc[aggregateKey]] = doc["marketValue"]
+
+    return make_json_response(aggregated_dict, 200)
+
+def get_latest_instrument_price(document, upperBoundDate, priceCollection):
+    pipeline = [
+        {
+            "$match": {
+                "$and": [
+                    {
+                        "$or": [
+                            { 
+                                "isinCode": document["isinCode"] if "isinCode" in document else document["symbol"]
+                            },
+                            {
+                                "SYMBOL": document["symbol"] if "symbol" in document else document["isinCode"]
+                            }
+                        ]
+                    },
+                    {
+                        "reportedDate": {"$lt": upperBoundDate}
+                    }
+                ]
+            }
+        },
+        {
+            "$sort": {
+                "date": -1  
+            }
+        },
+        {
+            "$limit": 1
+        }
+    ]
+
+    result = list(priceCollection.aggregate(pipeline))
+    try:
+        return result[0]["unitPrice"]
+    except:
+        print(document)
 
 def get_all(collection):
     cursor = collection.find()
