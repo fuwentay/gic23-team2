@@ -126,6 +126,7 @@ def insert_from_file_pd(request, collection):
         return make_json_response("Invalid CSV format in the uploaded file", 400)
     
 
+
 # def insert_from_file(request, collection):
 #     if 'file' not in request.files:
 #         return make_json_response("No file found in request.files", 400)

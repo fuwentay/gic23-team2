@@ -4,7 +4,10 @@ from database import db
 
 ingestor_blueprint = Blueprint("instruments", __name__)
 collection = db.instruments
+instrumentsCollection = db.instruments
+priceCollection = db.price
 collection_p = db.positions
+
 
 @ingestor_blueprint.route("/", methods = ["GET"])
 def index():
@@ -12,6 +15,13 @@ def index():
         return get_all(collection)
     else:
         return "hello"
+
+@ingestor_blueprint.route("/insertFromCsv", methods=["POST"])
+def insertFromFilePD():
+    if request.method == "POST":
+        return insert_from_file_pd(request, instrumentsCollection, positionsCollection)
+    else:
+        return unsupported_method()
 
 @ingestor_blueprint.route("/<id>", methods=['GET'])
 def getById(id):
@@ -31,6 +41,15 @@ def updateById(id):
 def insertFromApi():
     if request.method == "POST":
         return insert_from_api(request, collection)
+    else:
+        return unsupported_method()
+
+@ingestor_blueprint.route("/insertFromDb", methods=["GET"])
+def insertFromDb():
+    if request.method == "POST":
+        relative_path = "../inputs/master-reference.db"
+        file_path = os.path.join(os.path.dirname(__file__), relative_path)
+        return insert_from_db(file_path, instrumentsCollection, priceCollection)
     else:
         return unsupported_method()
 

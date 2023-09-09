@@ -24,12 +24,31 @@ import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
-
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 function Analytics() {
   const classes = styles();
   const { columns: prCols, rows: prRows } = instrumentTable;
   const [value, setValue] = React.useState(dayjs('year-month-day'));
+  const [instrument, setInstrument] = React.useState('');
+  const [country, setCountry] = React.useState('');
+  const [sector, setSector] = React.useState('');
+
+  const handleChangeInstrument = (event) => {
+    setInstrument(event.target.value);
+  };
+
+  const handleChangeCountry = (event) => {
+    setCountry(event.target.value);
+  };
+
+  const handleChangeSector = (event) => {
+    setSector(event.target.value);
+  };
 
   return (
     <DashboardLayout>
@@ -41,7 +60,7 @@ function Analytics() {
             <SuiBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DesktopDatePicker']}>
-                  <DemoItem label="Start Date">
+                  <DemoItem label="Start Date" sx={{ mb: "2px" }} >
                     <DesktopDatePicker defaultValue={dayjs()} />
                   </DemoItem>
                   <DemoItem label="End Date">
@@ -49,6 +68,54 @@ function Analytics() {
                   </DemoItem>
                 </DemoContainer>
               </LocalizationProvider>
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                  <DemoItem label="Instruments" style={{ marginBottom: '16px' }}></DemoItem>
+                  <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
+                    value={instrument}
+                    onChange={handleChangeInstrument}
+                    label="Instruments"
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                  <DemoItem label="Country"></DemoItem>
+                  <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
+                    value={country}
+                    onChange={handleChangeCountry}
+                    label="Country"
+                  >
+                    <MenuItem value={"test1"}>test</MenuItem>
+                    <MenuItem value={"test2"}>test1</MenuItem>
+                    <MenuItem value={"test3"}>test2</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                  <DemoItem label="Sector"></DemoItem>
+                  <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
+                    value={sector}
+                    onChange={handleChangeSector}
+                    label="Sector"
+                  >
+                    <MenuItem value={"sector1"}>test</MenuItem>
+                    <MenuItem value={"sector2"}>test1</MenuItem>
+                    <MenuItem value={"sector3"}>test2</MenuItem>
+                  </Select>
+                </FormControl>
+
+              </Box>
             </SuiBox>
 
             <SuiBox mb={3}>

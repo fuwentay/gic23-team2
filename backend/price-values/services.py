@@ -5,7 +5,6 @@ from flask import make_response
 from bson import json_util
 from bson.objectid import ObjectId
 from response import make_json_response
-import pandas as pd
 
 from database import db
 
