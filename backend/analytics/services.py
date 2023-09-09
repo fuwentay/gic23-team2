@@ -1,8 +1,12 @@
 from bson import json_util
 from bson.objectid import ObjectId
 from response import make_json_response
+from database import db
 
-def get_fund_aggregate(fundId, upperBoundDate, aggregateKey, positionsCollection, priceCollection):
+positionsCollection = db.positions
+priceCollection = db.price
+
+def get_fund_aggregate(fundId, upperBoundDate, aggregateKey):
     pipeline = [
         {
             "$match": {
@@ -30,7 +34,7 @@ def get_fund_aggregate(fundId, upperBoundDate, aggregateKey, positionsCollection
 
     return make_json_response(aggregated_dict, 200)
 
-def get_latest_instrument_price(document, upperBoundDate, priceCollection):
+def get_latest_instrument_price(document, upperBoundDate):
     pipeline = [
         {
             "$match": {
@@ -66,6 +70,24 @@ def get_latest_instrument_price(document, upperBoundDate, priceCollection):
         return result[0]["unitPrice"]
     except:
         print(document)
+
+def get_total_market_value(lowerDate, upperDate):
+    pipeline = [
+        {
+            "$match": {
+                "reportedDate": {"$gte": lowerDate, "$lte": upperDate}
+            }
+        },
+        {
+            "$group": {
+                "_id": "$fundId",
+                "totalMarketValue": {"$sum": "$marketValue"}
+            }
+        }
+    ]
+
+    result = list(positionsCollection.aggregate(pipeline))
+    return make_json_response(result, 200)
 
 def get_all(collection):
     cursor = collection.find()
