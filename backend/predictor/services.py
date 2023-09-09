@@ -8,17 +8,11 @@ from keras.models import Sequential
 from keras.layers import LSTM, Dense
 from datetime import datetime, timedelta
 
-# Connect to PostgreSQL database
-# engine = create_engine('postgresql://username:password@localhost:5432/database')
-
 # Load CSV data & Insert into database table
 instrument_df = pd.read_csv("./inputs/instruments-cleaned.csv")
 market_values_df = pd.read_csv("./inputs/market-values-cleaned.csv")
 transactions_df = pd.read_csv("./inputs/transactions-cleaned.csv")
 
-# instrument_df.to_sql('instruments', engine, if_exists='replace', index=False)
-# market_values_df.to_sql('marketVals', engine, if_exists='replace', index=False)
-# transactions_df.to_sql('transactions', engine, if_exists='replace', index=False)
 
 # Data Preprocessing
 # Set 'createdAt' to datetime type
@@ -109,6 +103,4 @@ arima_result = arima_forecast(market_values_df, instrument_id)
 lstm_result = lstm_forecast_single(market_values_df, instrument_id, target_month=1)
 forecasts = lstm_forecast_multiple(market_values_df, instrument_id, forecast_steps=12)
 
-print(f"ARIMA Forecast: {arima_result[-1]}")
-print(f"LSTM Forecast: {lstm_result}")
 print(f"LSTM Forecast Multiple: {forecasts}")
