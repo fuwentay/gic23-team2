@@ -27,7 +27,8 @@ import Avatar from "@mui/material/Avatar";
 // Custom styles for SuiAvatar
 import styles from "components/SuiAvatar/styles";
 
-const SuiAvatar = forwardRef(({ backgroundColor, size, boxShadow, customClass, ...rest }, ref) => {
+const SuiAvatar = forwardRef(({ backgroundColor, size, boxShadow, customClass, floatBottomRight,   onClick,  // New Prop
+  ...rest }, ref) => {
   const classes = styles({ boxShadow, backgroundColor });
 
   return (
@@ -37,6 +38,7 @@ const SuiAvatar = forwardRef(({ backgroundColor, size, boxShadow, customClass, .
       className={clsx(classes.suiAvatar, customClass, {
         [classes[`suiAvatar_${size}`]]: size,
         [classes.suiAvatar_boxShadow]: boxShadow !== "none",
+        [classes.suiAvatar_floatBottomRight]: floatBottomRight, // New class condition
       })}
     />
   );
@@ -48,6 +50,7 @@ SuiAvatar.defaultProps = {
   size: "md",
   boxShadow: "none",
   customClass: "",
+  floatBottomRight: false,
 };
 
 // Typechecking props for the SuiAvatar
@@ -66,6 +69,7 @@ SuiAvatar.propTypes = {
   size: PropTypes.oneOf(["xs", "sm", "md", "lg", "xl", "xxl"]),
   boxShadow: PropTypes.oneOf(["none", "xs", "sm", "regular", "lg", "xl", "xxl", "inset"]),
   customClass: PropTypes.string,
+  floatBottomRight: PropTypes.bool, 
 };
 
 export default SuiAvatar;

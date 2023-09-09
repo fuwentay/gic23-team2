@@ -13,7 +13,7 @@ function ChatUI() {
   }, []);
 
   function fetchMessages() {
-    fetch('http://0.0.0.0:5000/chatbot/getAllMessages')
+    fetch('http://0.0.0.0:9000/chatbot/getAllMessages')
       .then(response => response.json())
       .then(data => setMessages(data))
       .catch(error => console.error('Error fetching messages:', error));
@@ -27,7 +27,7 @@ function ChatUI() {
         sender: 'user',
       };
 
-      fetch('http://0.0.0.0:5000/chatbot/insertMessages', {
+      fetch('http://0.0.0.0:9000/chatbot/insertMessages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ function ChatUI() {
   return (
     <Box
       sx={{
-        height: '90vh',
+        height: '50vh',
         display: 'flex',
         flexDirection: 'column',
         bgcolor: 'grey.200',

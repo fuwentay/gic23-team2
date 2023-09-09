@@ -65,7 +65,7 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Tables",
+    name: "Instrument",
     key: "tables",
     route: "/tables",
     icon: <Document size="12px" />,
@@ -74,7 +74,7 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Positions",
+    name: "Fund",
     key: "positions",
     route: "/positions",
     icon: <Office size="12px" />,
