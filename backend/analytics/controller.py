@@ -18,9 +18,16 @@ def getTotalMarketValue(lowerDate, upperDate):
     else:
         return unsupported_method()
     
-@analytics_blueprint.route("/returns/<lowerDate>/<upperDate>", methods=['GET'])
-def getMonthlyReturns(lowerDate, upperDate):
+@analytics_blueprint.route("/returns/funds/<lowerDate>/<upperDate>", methods=['GET'])
+def getMonthlyReturnsFunds(lowerDate, upperDate):
     if request.method == "GET":
-        return get_total_investment_returns(lowerDate, upperDate)
+        return get_total_investment_returns_funds(lowerDate, upperDate)
+    else:
+        return unsupported_method()
+    
+@analytics_blueprint.route("/returns/instruments/<lowerDate>/<upperDate>", methods=['GET'])
+def getMonthlyReturnsInstruments(lowerDate, upperDate):
+    if request.method == "GET":
+        return get_total_investment_returns_instruments(lowerDate, upperDate)
     else:
         return unsupported_method()
