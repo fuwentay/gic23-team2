@@ -12,12 +12,27 @@ collection = db.chatbot
 def getResponse():
     # query = "can you determine the total marketValue of Private Equity?"
     try:
-        return response_pd("on 31/1/2020 12:00:00am, can you determine the total marketValue of Private Equity?")
+        json_data = csv_to_json()
+        query = "\n What are the different financial types?"
+        question = "Here is the csv data: " + json_data + query
+        return call_anthropic(question)
     # TODO: paraphrase using openai api until valid response.
     except Exception as e:
         logging.error(traceback.format_exc())
         # Logs the error appropriately.
         return "Sorry, could you please repeat what you said? You could try paraphrasing what you said."
+
+
+# @chatbot_blueprint.route("/chat")
+# def getResponse():
+#     # query = "can you determine the total marketValue of Private Equity?"
+#     try:
+#         return response_pd("on 31/1/2020 12:00:00am, can you determine the total marketValue of Private Equity?")
+#     # TODO: paraphrase using openai api until valid response.
+#     except Exception as e:
+#         logging.error(traceback.format_exc())
+#         # Logs the error appropriately.
+#         return "Sorry, could you please repeat what you said? You could try paraphrasing what you said."
 
 
 @chatbot_blueprint.route("/getAllMessages", methods=['GET', 'POST'])
