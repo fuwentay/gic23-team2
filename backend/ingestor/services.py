@@ -45,15 +45,15 @@ def read_from_db(dbFile):
     
     return data
 
-def insert_from_db(file, instrumentsCollection = None, priceCollection = None):
+def insert_from_db(file, instrumentsCollection, priceCollection):
     dbData = read_from_db(file)
     for tableName, tableData in dbData.items():
         if tableName == "bond_reference":
-            insertedRows = parse_and_insert_instrument(tableData, instrumentsCollection)
+            insertedRows = parse_and_insert_instrument(tableData, instrumentsCollection, "Government Bond")
         elif tableName == "bond_prices":
             insertedRows = parse_and_insert_price(tableData, priceCollection)
         elif tableName == "equity_reference":
-            insertedRows = parse_and_insert_instrument(tableData, instrumentsCollection)
+            insertedRows = parse_and_insert_instrument(tableData, instrumentsCollection, "Equity")
         elif tableName == "equity_prices":
             insertedRows = parse_and_insert_price(tableData, priceCollection)
 
@@ -73,19 +73,25 @@ def unsupported_method():
     return make_json_response("Request type not supported", 400)
 
 
-def parse_and_insert_instrument(rows, collection):    
+def parse_and_insert_instrument(rows, collection, instrumentType):    
     key_mapping = {
         'SYMBOL': 'symbol',
         'COUNTRY': 'country',
         'SECURITY NAME': 'instrumentName',
         'SECTOR': 'sector',
         'INDUSTRY': 'industry',
-        'CURRENCY': 'currency'
+        'CURRENCY': 'currency',
+        'ISIN': 'isinCode',
+        'SEDOL': 'sedolCode',
+        'COUPON': 'coupon',
+        'MATURITY DATE': 'maturityDate',
+        'COUPON FREQUENCY': 'couponFrequency'
     }   
     for i in range(len(rows)):
         rows[i] = {key_mapping.get(key, key): value for key, value in rows[i].items()}
         rows[i]["createdAt"] = datetime.now()
         rows[i]["modifiedAt"] = datetime.now()
+        rows[i]["instrumentType"] = instrumentType
     insertManyResult = collection.insert_many(rows)
     insertedRowsCursor = collection.find({"_id": {"$in": insertManyResult.inserted_ids}})
     
