@@ -2,34 +2,28 @@ from .services import *
 from flask import Blueprint, request
 from database import db
 
-ingestor_blueprint = Blueprint("instruments", __name__)
-collection = db.instruments
+ingestor_blueprint = Blueprint("ingestor", __name__)
+instrumentsCollection = db.instruments
+priceCollection = db.price
 
-@ingestor_blueprint.route("/", methods = ["GET"])
-def index():
-    if request.method == "GET":
-        return get_all(collection)
-    else:
-        return "hello"
-
-@ingestor_blueprint.route("/<id>", methods=['GET'])
-def getById(id):
-    if request.method == "GET":
-        return get_by_id(id, collection)
-    else:
-        return unsupported_method()
-
-@ingestor_blueprint.route("/<id>", methods=["PUT"])
-def updateById(id):
-    if request.method == "PUT":
-        return insert_from_file_pd(request, collection)
+@ingestor_blueprint.route("/insertFromCsv", methods=["POST"])
+def insertFromFilePD():
+    if request.method == "POST":
+        return insert_from_file_pd(request, instrumentsCollection, positionsCollection)
     else:
         return unsupported_method()
 
 @ingestor_blueprint.route("/insertFromApi", methods=["POST"])
 def insertFromApi():
     if request.method == "POST":
-        return insert_from_api(request, collection)
+        return insert_from_api(request, instrumentsCollection, positionsCollection)
+    else:
+        return unsupported_method()
+
+@ingestor_blueprint.route("/insertFromDb", methods=["POST"])
+def insertFromDb():
+    if request.method == "POST":
+        return insert_from_db("/Users/liaugwayne/Desktop/2023-app-2/backend/inputs/master-reference.db", instrumentsCollection, priceCollection)
     else:
         return unsupported_method()
 
