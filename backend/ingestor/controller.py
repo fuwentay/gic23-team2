@@ -6,6 +6,7 @@ ingestor_blueprint = Blueprint("ingest", __name__)
 instrumentsCollection = db.instruments
 priceCollection = db.price
 positionsCollection = db.positions
+isinCollection = db.isin
 
 @ingestor_blueprint.route("/insertFromCsv", methods=["POST"])
 def insertFromFilePD():
@@ -21,12 +22,12 @@ def insertFromApi():
     else:
         return unsupported_method()
 
-@ingestor_blueprint.route("/insertFromDb", methods=["GET"])
+@ingestor_blueprint.route("/insertFromDb", methods=["POST"])
 def insertFromDb():
     if request.method == "POST":
         relative_path = "../inputs/master-reference.db"
         file_path = os.path.join(os.path.dirname(__file__), relative_path)
-        return insert_from_db(file_path, instrumentsCollection, priceCollection)
+        return insert_from_db(file_path, instrumentsCollection, priceCollection, isinCollection)
     else:
         return unsupported_method()
 

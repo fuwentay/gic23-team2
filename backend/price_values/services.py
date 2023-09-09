@@ -8,6 +8,13 @@ from response import make_json_response
 
 from database import db
 
-def get_by_fund_instrument_id(fundId, instrumentId, positionsCollection):
-    cursor = positionsCollection.find({"fundId": fundId, "instrumentId": instrumentId})
-    return make_json_response(json_util.dumps(cursor), 200)
+def get_prices_by_id(instrumentId, priceCollection, instrumentsCollection):
+    document = instrumentsCollection.find_one({"_id": ObjectId(instrumentId)})
+    if not document:
+        return make_json_response(json_util.dumps(cursor), 400)
+    if document["instrumentType"] == "Equity":
+        key = "symbol"  
+    else:
+        key = "isinCode"
+    pricesCursor = priceCollection.find({key: document[key]}) # TODO - filter by last price of the month
+    return make_json_response(json_util.dumps(pricesCursor), 200)
