@@ -6,3 +6,4 @@ requests
 pandas
 langchain
 python-dotenv
+boto3
