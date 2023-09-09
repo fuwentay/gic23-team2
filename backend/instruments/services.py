@@ -20,7 +20,7 @@ def get_by_id(id, collection):
 
 def update_by_id(id, body, collection):
     cursor = collection.find_one({"_id": ObjectId(id)})
-    query = {"_id": ObjectId(id)}l
+    query = {"_id": ObjectId(id)}
     update = {"$set": body}
 
     result = collection.find_one_and_update(query, update, return_document=pymongo.ReturnDocument.BEFORE)

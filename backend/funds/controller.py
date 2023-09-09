@@ -13,7 +13,7 @@ def getById(id, instrumentId):
         return unsupported_method()
 
 @funds_blueprint.route("/<id>/refresh", methods=['POST'])
-def getById(id):
+def refresh(id):
     if request.method == "POST":
         return refresh_by_id(id, positionsCollection)
     else:
