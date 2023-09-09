@@ -1,0 +1,6 @@
+__pycache__/
+node_modules/
+.test
+.env
+.package.json
+.package-lock.json

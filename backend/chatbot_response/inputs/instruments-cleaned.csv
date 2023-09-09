@@ -1,0 +1,201 @@
+instrumentId,instrumentName,instrumentType,country,sector,instrumentCurrency,isTradeable,isDeleted,createdAt,notes
+1,Armstrong - Jacobi,Private Equity,US,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+2,Armstrong - Reichert,Private Equity,US,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+3,Armstrong Sporer and Nikolaus,Private Equity,US,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+4,Auer - Bailey,Private Equity,US,Industrials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Industrials; Tradable Instrument
+5,Bailey - Rosenbaum,Private Equity,US,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+6,Bartoletti Group,Private Equity,US,Industrials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Industrials; Tradable Instrument
+7,Barton - Stark,Private Equity,US,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+8,Batz - Reichert,Private Equity,US,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+9,Batz - Ziemann,Private Equity,US,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+10,Batz Schimmel and Kessler,Private Equity,US,Industrials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Industrials; Tradable Instrument
+11,Baumbach Inc,Private Equity,US,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+12,Bayer and Sons,Private Equity,US,Energy,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Energy; Tradable Instrument
+13,Beahan - Cartwright,Private Equity,US,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+14,Beatty - Boyle,Private Equity,US,Communication Services,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Communication Services; Tradable Instrument
+15,Beer Christiansen and Von,Private Equity,US,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+16,Beier and Sons,Private Equity,US,Industrials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Industrials; Tradable Instrument
+17,Bergnaum Veum and Strosin,Private Equity,US,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+18,Blick - Bogisich,Private Equity,US,Energy,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Energy; Tradable Instrument
+19,Bode - Cartwright,Private Equity,US,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+20,Bogan - Deckow,Private Equity,US,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+21,Bosco Inc,Private Equity,US,Energy,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Energy; Tradable Instrument
+22,Boyer - Ritchie,Private Equity,US,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+23,Boyer Ebert and MacGyver,Private Equity,US,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+24,Braun - Effertz,Private Equity,US,Industrials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Industrials; Tradable Instrument
+25,Carroll - Heathcote,Private Equity,US,Communication Services,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Communication Services; Tradable Instrument
+26,Carroll Group,Private Equity,US,Energy,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Energy; Tradable Instrument
+27,Carter - Terry,Private Equity,US,Communication Services,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Communication Services; Tradable Instrument
+28,Cartwright - Larkin,Private Equity,US,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+29,Casper Inc,Private Equity,US,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+30,Cassin Reichel and Cummings,Private Equity,US,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+31,Champlin - Sawayn,Private Equity,US,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+32,Cole - Lueilwitz,Private Equity,US,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+33,Connelly Inc,Private Equity,US,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+34,Conroy Marvin and Lind,Private Equity,US,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+35,Corkery Group,Private Equity,US,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+36,Corkery Schoen and Dietrich,Private Equity,US,Communication Services,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Communication Services; Tradable Instrument
+37,Corwin - Hane,Private Equity,US,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+38,Crooks Gislason and Olson,Private Equity,US,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+39,Cruickshank - Spencer,Private Equity,US,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+40,Cummerata Group,Private Equity,US,Communication Services,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Communication Services; Tradable Instrument
+41,Dare Mitchell and Borer,Real Estate,US,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+42,Dickens - Turcotte,Real Estate,US,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+43,Dickens Lowe and Bradtke,Real Estate,US,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+44,Dietrich Heller and Hodkiewicz,Real Estate,US,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+45,Donnelly Carter and Medhurst,Real Estate,US,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+46,Douglas - Runte,Real Estate,US,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+47,Douglas Harvey and Fritsch,Real Estate,US,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+48,Emard LLC,Real Estate,US,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+49,Emmerich Witting and Considine,Real Estate,US,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+50,Ernser Mayer and Reynolds,Real Estate,US,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+51,Farrell and Sons,Private Equity,CN,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+52,Feil - Heathcote,Private Equity,CN,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+53,Gerlach and Sons,Private Equity,CN,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+54,Gerlach Abbott and Altenwerth,Private Equity,CN,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+55,Gibson Beahan and Cremin,Private Equity,CN,Industrials,USD,FALSE,FALSE,1/2/2019 0:00,Private Equity; Industrials; Non Tradable Instrument
+56,Gibson Schamberger and Champlin,Private Equity,CN,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+57,Gislason and Sons,Private Equity,CN,Communication Services,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Communication Services; Tradable Instrument
+58,Glover LLC,Private Equity,CN,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+59,Goodwin - Metz,Private Equity,CN,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+60,Greenfelder - Feest,Private Equity,CN,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+61,Greenholt - Ritchie,Private Equity,CN,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+62,Greenholt LLC,Private Equity,CN,Energy,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Energy; Tradable Instrument
+63,Grimes Collins and Ward,Private Equity,CN,Industrials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Industrials; Tradable Instrument
+64,Gulgowski and Sons,Private Equity,CN,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+65,Gusikowski Inc,Private Equity,CN,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+66,Haag LLC,Private Equity,CN,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+67,Hackett Inc,Private Equity,CN,Consumer Staples,USD,FALSE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Non Tradable Instrument
+68,Haley LLC,Private Equity,CN,Industrials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Industrials; Tradable Instrument
+69,Hamill Zemlak and Rosenbaum,Private Equity,CN,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+70,Hand - Volkman,Private Equity,CN,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+71,Hansen - Mosciski,Private Equity,CN,Energy,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Energy; Tradable Instrument
+72,Harber Dibbert and Hagenes,Private Equity,CN,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+73,Heathcote - Parisian,Private Equity,CN,Energy,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Energy; Tradable Instrument
+74,Hermiston Hane and Crona,Private Equity,CN,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+75,Herzog Huel and Lockman,Private Equity,CN,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+76,Hettinger Group,Private Equity,CN,Industrials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Industrials; Tradable Instrument
+77,Hickle and Sons,Private Equity,CN,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+78,Hickle LLC,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+79,Hills Inc,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+80,Hilpert Kuhic and Gerlach,Private Equity,CN,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+81,Howe - Zieme,Private Equity,CN,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+82,Huels Inc,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+83,Jacobi Inc,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+84,Jacobs Inc,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+85,Jacobson - O'Reilly,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+86,Jacobson - Rempel,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+87,Jakubowski and Sons,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+88,Jakubowski Frami and Gibson,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+89,Johns and Sons,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+90,Jones Inc,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+91,Keebler Inc,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+92,Kessler Farrell and Gislason,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+93,Kirlin and Sons,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+94,Kling - Will,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+95,Koepp and Sons,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+96,Koepp Group,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+97,Konopelski - Gusikowski,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+98,Kshlerin McKenzie and Kulas,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+99,Kuhic - Dibbert,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+100,Kuhlman and Sons,Real Estate,CN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+101,Langworth - Hills,Private Equity,GB,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+102,Leannon Mann and Mitchell,Private Equity,GB,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+103,Legros - Hane,Private Equity,GB,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+104,Legros Wisoky and Von,Private Equity,GB,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+105,Lehner and Sons,Private Equity,GB,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+106,Lesch - Harber,Private Equity,GB,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+107,Lind - Leannon,Private Equity,GB,Industrials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Industrials; Tradable Instrument
+108,Little Inc,Private Equity,GB,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+109,Lowe - Skiles,Private Equity,GB,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+110,Lynch Aufderhar and Hansen,Private Equity,GB,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+111,MacGyver and Sons,Private Equity,GB,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+112,Mann LLC,Private Equity,GB,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+113,Mante Inc,Private Equity,GB,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+114,Marks Nitzsche and Kirlin,Private Equity,GB,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+115,Marvin - Hodkiewicz,Private Equity,GB,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+116,Marvin - Price,Private Equity,GB,Communication Services,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Communication Services; Tradable Instrument
+117,McCullough Medhurst and Wuckert,Private Equity,GB,Energy,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Energy; Tradable Instrument
+118,Medhurst Wilderman and Murray,Private Equity,GB,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+119,Mitchell Lebsack and Zboncak,Private Equity,GB,Communication Services,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Communication Services; Tradable Instrument
+120,Mohr and Sons,Private Equity,GB,Communication Services,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Communication Services; Tradable Instrument
+121,Mohr Dooley and Metz,Real Estate,GB,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+122,Morissette Group,Real Estate,GB,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+123,Mosciski - Hintz,Real Estate,GB,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+124,Mosciski Group,Real Estate,GB,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+125,Mosciski Inc,Real Estate,GB,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+126,Mraz Hackett and Ziemann,Real Estate,GB,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+127,Nader - Kirlin,Real Estate,GB,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+128,Nikolaus Group,Real Estate,GB,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+129,Nolan Inc,Real Estate,GB,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+130,Nolan Koepp and Ankunding,Private Equity,GB,Communication Services,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Communication Services; Tradable Instrument
+131,O'Connell - Koelpin,Private Equity,AU,Industrials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Industrials; Tradable Instrument
+132,O'Reilly - Powlowski,Private Equity,AU,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+133,Padberg - Lakin,Private Equity,AU,Industrials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Industrials; Tradable Instrument
+134,Parisian LLC,Private Equity,AU,Energy,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Energy; Tradable Instrument
+135,Pfannerstill Bode and Runte,Private Equity,AU,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+136,Pollich - Stroman,Real Estate,AU,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+137,Pouros Group,Real Estate,AU,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+138,Predovic - Kling,Real Estate,AU,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+139,Price - Cremin,Real Estate,AU,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+140,Prohaska - Block,Private Equity,AU,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+141,Prosacco Murazik and Baumbach,Real Estate,IN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+142,Purdy Group,Private Equity,IN,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+143,Purdy LLC,Private Equity,IN,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+144,Raynor Group,Private Equity,IN,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+145,Reinger Group,Real Estate,IN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+146,Robel - Hickle,Private Equity,IN,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+147,Rodriguez Reichert and Nolan,Private Equity,IN,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+148,Romaguera Batz and Watsica,Real Estate,IN,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+149,Runolfsdottir Group,Private Equity,IN,Communication Services,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Communication Services; Tradable Instrument
+150,Runolfsson - Prohaska,Private Equity,IN,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+151,Runte Lubowitz and Schultz,Private Equity,BR,Communication Services,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Communication Services; Tradable Instrument
+152,Sanford Tremblay and Wunsch,Private Equity,BR,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+153,Schmeler - Zieme,Private Equity,BR,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+154,Schneider Group,Private Equity,BR,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+155,Schoen Goyette and Kohler,Private Equity,BR,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+156,Schroeder Aufderhar and Lynch,Private Equity,BR,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+157,Schulist Inc,Private Equity,BR,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+158,Schumm Hirthe and Ryan,Real Estate,BR,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+159,Shields Inc,Real Estate,BR,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+160,Shields LLC,Real Estate,JP,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+161,Sipes Inc,Real Estate,JP,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+162,Sipes Vandervort and Kerluke,Real Estate,JP,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+163,Skiles - Murazik,Real Estate,JP,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+164,Skiles Group,Real Estate,JP,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+165,Spinka - Maggio,Real Estate,JP,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+166,Stanton Friesen and Simonis,Real Estate,JP,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+167,Steuber - Kiehn,Real Estate,JP,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+168,Stiedemann Group,Real Estate,JP,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+169,Stoltenberg - Nienow,Real Estate,JP,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+170,Streich Inc,Private Equity,BR,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+171,Swaniawski and Sons,Private Equity,JP,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+172,Swaniawski Brakus and Hahn,Private Equity,JP,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+173,Thiel - Douglas,Private Equity,JP,Communication Services,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Communication Services; Tradable Instrument
+174,Thiel - Labadie,Private Equity,JP,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+175,Thiel Prosacco and Ferry,Private Equity,JP,Industrials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Industrials; Tradable Instrument
+176,Thompson - Hills,Private Equity,JP,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+177,Thompson and Sons,Private Equity,JP,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+178,Tillman Hickle and Jakubowski,Real Estate,JP,Real Estate,USD,TRUE,FALSE,1/2/2019 0:00,Real Estate; Real Estate; Tradable Instrument
+179,Toy - Paucek,Private Equity,JP,Communication Services,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Communication Services; Tradable Instrument
+180,Toy - VonRueden,Private Equity,JP,Energy,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Energy; Tradable Instrument
+181,Trantow - Smith,Private Equity,JP,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+182,Turner Rath and Luettgen,Private Equity,JP,Energy,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Energy; Tradable Instrument
+183,Ullrich LLC,Private Equity,JP,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+184,Vandervort Inc,Private Equity,JP,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+185,Vandervort Okuneva and Carroll,Private Equity,JP,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+186,Veum LLC,Private Equity,JP,Energy,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Energy; Tradable Instrument
+187,Volkman Haag and Schiller,Private Equity,JP,Industrials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Industrials; Tradable Instrument
+188,Von - Kunde,Private Equity,JP,Energy,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Energy; Tradable Instrument
+189,Walsh and Sons,Private Equity,JP,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+190,Weber Kohler and Kautzer,Private Equity,JP,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+191,Wilderman Huel and Sporer,Private Equity,DE,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+192,Will - Quigley,Private Equity,DE,Energy,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Energy; Tradable Instrument
+193,Wisoky - Gleason,Private Equity,DE,Information Technology,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Information Technology; Tradable Instrument
+194,Wisoky and Sons,Private Equity,DE,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+195,Wisoky Inc,Private Equity,DE,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+196,Wyman - Kling,Private Equity,DE,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
+197,Wyman Mohr and Johns,Private Equity,DE,Communication Services,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Communication Services; Tradable Instrument
+198,Yost LLC,Private Equity,DE,Financials,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Financials; Tradable Instrument
+199,Yundt - Macejkovic,Private Equity,DE,Consumer Staples,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Consumer Staples; Tradable Instrument
+200,Zieme - West,Private Equity,DE,Healthcare,USD,TRUE,FALSE,1/2/2019 0:00,Private Equity; Healthcare; Tradable Instrument
