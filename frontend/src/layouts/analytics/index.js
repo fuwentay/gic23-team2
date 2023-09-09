@@ -50,12 +50,6 @@ function Analytics() {
     setSector(event.target.value);
   };
 
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
-
   return (
     <DashboardLayout>
       <DashboardNavbar />

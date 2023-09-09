@@ -21,7 +21,7 @@ def insertFromApi():
     else:
         return unsupported_method()
 
-@ingestor_blueprint.route("/insertFromDb", methods=["POST"])
+@ingestor_blueprint.route("/insertFromDb", methods=["GET"])
 def insertFromDb():
     if request.method == "POST":
         relative_path = "../inputs/master-reference.db"
