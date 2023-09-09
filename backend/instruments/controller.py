@@ -10,18 +10,14 @@ def index():
     if request.method == "GET":
         return get_all(collection)
     else:
-        return "hello"
-
-@instruments_blueprint.route("/<id>", methods=['GET'])
-def getById(id):
-    if request.method == "GET":
-        return get_by_id(id, collection)
-    else:
         return unsupported_method()
 
-@instruments_blueprint.route("/<id>", methods=["PUT"])
-def updateById():
-    if request.method == "PUT":
-        return delete_all(collection)
+@instruments_blueprint.route("/<id>", methods=['GET', 'PUT'])
+def idOperations(id):
+    if request.method == "GET":
+        return get_by_id(id, collection)
+    elif request.method == "PUT":
+        body = request.json()
+        return update_by_id(id, body, collection)
     else:
         return unsupported_method()
