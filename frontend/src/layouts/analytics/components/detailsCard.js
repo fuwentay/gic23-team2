@@ -5,8 +5,9 @@ import Card from "@mui/material/Card";
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 
-function detailsCard() {
+function DetailsCard() {
     return (
+        <div>
         <Card className="h-100" style={{ paddingTop: "15px", paddingLeft: '15px', paddingBottom: "10px" }}>
             <SuiTypography variant="h5" fontWeight="bold">
                 Details
@@ -68,7 +69,8 @@ function detailsCard() {
                 </SuiTypography>
             </SuiBox>
         </Card>
+        </div>
     );
 }
 
-export default detailsCard;
+export default DetailsCard;

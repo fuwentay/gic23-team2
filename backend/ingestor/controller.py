@@ -42,6 +42,5 @@ def deleteAll():
 def readFromCSV():
     if request.method == "GET":
         return csv_to_db(positionsCollection)
-        # return "Hello"
     else:
         return unsupported_method()

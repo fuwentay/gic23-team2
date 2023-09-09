@@ -62,8 +62,8 @@ function Table() {
         </SuiButton> */}
 
             </SuiBox>
-            <SuiBox py={3}>
-                <SuiBox mb={3}>
+            <SuiBox>
+                <SuiBox mb={0}>
                     <Card>
                         <SuiBox customClass={classes.tables_table}>
                             <FilterSortTable
