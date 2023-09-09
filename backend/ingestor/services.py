@@ -165,7 +165,6 @@ def parse_and_insert_instrument(rows, instrumentsCollection, instrumentType):
     }   
     for i in range(len(rows)):
         rows[i] = {key_mapping.get(key, key): value for key, value in rows[i].items()}
-        rows[i]["instrumentName"] = instrumentName
         rows[i]["createdAt"] = datetime.now()
         rows[i]["modifiedAt"] = datetime.now()
         rows[i]["instrumentType"] = instrumentType

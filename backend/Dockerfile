@@ -12,10 +12,10 @@ RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Specify the Flask environment port
-ENV PORT 5000
+ENV PORT 9000
 
 # By default, listen on port 5000
-EXPOSE 5000
+EXPOSE 9000
 
 # Set the directive to specify the executable that will run when the container is initiated
 ENTRYPOINT [ "python" ]
