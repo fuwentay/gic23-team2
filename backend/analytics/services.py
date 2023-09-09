@@ -89,6 +89,69 @@ def get_total_market_value(lowerDate, upperDate):
     result = list(positionsCollection.aggregate(pipeline))
     return make_json_response(result, 200)
 
+def get_total_investment_returns(lowerDate, upperDate):
+    pipeline = [
+        {
+            "$match": {
+                "reportedDate": {"$gt": lowerDate, "$lte": upperDate}
+            }
+        },
+        {
+            "$sort": {
+                "reportedDate": 1
+            }
+        },
+        {
+            "$group": {
+                "_id": "$fundId",
+                "earliestReportedDate": {"$first": "$reportedDate"},
+                "marketValue": {"$first": "$marketValue"}
+            }
+        },
+        {
+            "$sort": {
+                "_id": 1  # Sort by fundId in ascending order
+            }
+        },
+    ]
+
+    old_market_values = list(positionsCollection.aggregate(pipeline))
+
+    pipeline = [
+        {
+            "$match": {
+                "reportedDate": {"$gt": lowerDate, "$lte": upperDate}
+            }
+        },
+        {
+            "$sort": {
+                "reportedDate": -1
+            }
+        },
+        {
+            "$group": {
+                "_id": "$fundId",
+                "latestReportedDate": {"$first": "$reportedDate"},
+                "marketValue": {"$first": "$marketValue"}
+            }
+        },
+        {
+            "$sort": {
+                "_id": 1  # Sort by fundId in ascending order
+            }
+        },
+    ]
+    latest_market_values = list(positionsCollection.aggregate(pipeline))
+
+    returns = {}
+
+    for oldFund in old_market_values:
+        for newFund in latest_market_values:
+            if oldFund["_id"] == newFund["_id"]:
+                returns[oldFund["_id"]] = newFund["marketValue"]/oldFund["marketValue"] - 1
+
+    return make_json_response(json_util.dumps(returns), 200)
+
 def get_all(collection):
     cursor = collection.find()
     return make_json_response(json_util.dumps(cursor), 200)

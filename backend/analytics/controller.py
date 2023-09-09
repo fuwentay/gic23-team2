@@ -11,9 +11,16 @@ def getAggregate(aggregate_key, id, date):
     else:
         return unsupported_method()
     
-@analytics_blueprint.route("/<lowerDate>/<upperDate>", methods=['GET'])
+@analytics_blueprint.route("/market/<lowerDate>/<upperDate>", methods=['GET'])
 def getTotalMarketValue(lowerDate, upperDate):
     if request.method == "GET":
         return get_total_market_value(lowerDate, upperDate)
+    else:
+        return unsupported_method()
+    
+@analytics_blueprint.route("/returns/<lowerDate>/<upperDate>", methods=['GET'])
+def getMonthlyReturns(lowerDate, upperDate):
+    if request.method == "GET":
+        return get_total_investment_returns(lowerDate, upperDate)
     else:
         return unsupported_method()
