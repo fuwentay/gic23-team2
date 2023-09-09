@@ -13,6 +13,7 @@ from dateutil import parser
 from datetime import datetime
 
 collection2 = db.chatbot_input
+collection_f = db.fund
 
 def insert_from_db(file, instrumentsCollection, priceCollection):
     dbData = read_from_db(file)
@@ -63,16 +64,35 @@ def read_from_db(dbFile):
     return data
 
 def getFundId(file_path):
-    dictFund = {'Trustmind':1, 'Virtous':2, 'Wallington':3, 'Gohen':4, 'Catalysm':5, 'Belaware': 6, 'Whitestone': 7, 'Leeder': 8, 'Magnum': 9, 'Applebead': 10}
-    for i in dictFund:
-        if i in file_path:
-            return dictFund[i]
+    cursor = collection_f.find()
+    # Iterate through the cursor to access each document
+    for document in cursor:
+        fund_value = document["fund"]
+        if fund_value in file_path:
+            # returns a string. not sure which is preferred.
+            return document["fundId"]
         
 def getFund(file_path):
-    dictFund = {'Trustmind':1, 'Virtous':2, 'Wallington':3, 'Gohen':4, 'Catalysm':5, 'Belaware': 6, 'Whitestone': 7, 'Leeder': 8, 'Magnum': 9, 'Applebead': 10}
-    for i in dictFund:
-        if i in file_path:
-            return i
+    cursor = collection_f.find()
+    # Iterate through the cursor to access each document
+    for document in cursor:
+        fund_value = document["fund"]
+        if fund_value in file_path:
+            # returns a string. not sure which is preferred.
+            return document["fund"]
+
+# def getFundId(file_path):
+#     dictFund = {'Trustmind':1, 'Virtous':2, 'Wallington':3, 'Gohen':4, 'Catalysm':5, 'Belaware': 6, 'Whitestone': 7, 'Leeder': 8, 'Magnum': 9, 'Applebead': 10}
+#     for i in dictFund:
+#         if i in file_path:
+#             return dictFund[i]
+        
+# def getFund(file_path):
+#     dictFund = {'Trustmind':1, 'Virtous':2, 'Wallington':3, 'Gohen':4, 'Catalysm':5, 'Belaware': 6, 'Whitestone': 7, 'Leeder': 8, 'Magnum': 9, 'Applebead': 10}
+#     for i in dictFund:
+#         if i in file_path:
+#             return i
+    
 
 # determine instrumentId
 def mapInstrumentType(instrument_type):
@@ -83,9 +103,26 @@ def mapInstrumentType(instrument_type):
 def getReportedDate(file_path):
     split_path = file_path.split(".")[1]
     splitted_path = split_path.split()[0]
-    date = parser.parse(splitted_path)
-    datestr = date.strftime("%Y-%m-%d")
-    return datestr
+    try:
+        date = parser.parse(splitted_path)
+        datestr = date.strftime("%Y-%m-%d")
+        
+        return datestr
+    except ValueError:
+        day, month, year = splitted_path.split("_")
+
+        if int(month) > 12:
+            temp = day
+            day = month
+            month = temp
+
+        # Construct a date string in the "yyyy-mm-dd" format
+        formatted_date_str = f"{year}-{month}-{day}"
+
+        # Parse the formatted date string
+        date = parser.parse(formatted_date_str)
+        datestr = date.strftime("%Y-%m-%d")
+        return datestr
 
 
 def read_from_csv(file_path):
