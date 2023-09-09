@@ -87,8 +87,6 @@ def read_from_db(dbFile):
 def insert_from_db(file, instrumentsCollection = None, priceCollection = None):
     dbData = read_from_db(file)
     for tableName, tableData in dbData.items():
-        print(tableName)
-        print(tableData[0])
         if tableName == "bond_reference":
             insertedRows = parse_and_insert_instrument(tableData, instrumentsCollection)
         elif tableName == "bond_prices":
@@ -97,6 +95,8 @@ def insert_from_db(file, instrumentsCollection = None, priceCollection = None):
             insertedRows = parse_and_insert_instrument(tableData, instrumentsCollection)
         elif tableName == "equity_prices":
             insertedRows = parse_and_insert_price(tableData, priceCollection)
+
+    return make_json_response(insertedRows, 200)
 
 # def insert_from_api(request, collection):
 #     json = request.get_json()
@@ -137,12 +137,12 @@ def parse_and_insert_instrument(rows, collection):
     }
     for i in range(len(rows)):
         rows[i] = {key_mapping.get(key, key): value for key, value in rows[i].items()}
-    insertManyResult = db.test.insert_many(rows)
-    # insertManyResult = collection.insert_many(rows)
-    # insertedRowsCursor = collection.find({"_id": {"$in": insertManyResult.inserted_ids}})
+        rows[i]["createdAt"] = ""
+        rows[i]["modifiedAt"] = ""
+    insertManyResult = collection.insert_many(rows)
+    insertedRowsCursor = collection.find({"_id": {"$in": insertManyResult.inserted_ids}})
     
-    # return json_util.dumps(list(insertedRowsCursor))    
-    return
+    return json_util.dumps(list(insertedRowsCursor))    
 
 def parse_and_insert_price(rows, collection): 
     key_mapping = {
@@ -155,9 +155,9 @@ def parse_and_insert_price(rows, collection):
     }   
     for i in range(len(rows)):
         rows[i] = {key_mapping.get(key, key): value for key, value in rows[i].items()}
+        rows[i]["createdAt"] = ""
+        rows[i]["modifiedAt"] = ""
     insertManyResult = collection.insert_many(rows)
-    # insertedRowsCursor = collection.find({"_id": {"$in": insertManyResult.inserted_ids}})
+    insertedRowsCursor = collection.find({"_id": {"$in": insertManyResult.inserted_ids}})
     
-    # return json_util.dumps(list(insertedRowsCursor))    
-    print(insertManyResult)
-    return
+    return json_util.dumps(list(insertedRowsCursor))    
