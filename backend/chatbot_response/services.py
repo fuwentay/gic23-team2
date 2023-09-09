@@ -27,7 +27,7 @@ import csv
 collection = db.chatbot_input
 
 def csv_to_json():
-    csv_file_path = r'backend\anthropic\inputs\Applebead.28-02-2023 breakdown.csv'  # Replace with the path to your CSV file
+    csv_file_path = r'backend\inputs\Applebead.28-02-2023 breakdown.csv'  # Replace with the path to your CSV file
     csv_data = []
 
     with open(csv_file_path, mode='r') as csv_file:
