@@ -12,11 +12,73 @@ from bson import json_util
 from database import db
 import json
 
-collection = db.chatbot_input
-
 import requests
 from bson import json_util
 from response import make_json_response
+
+import os
+import json
+import urllib3
+import boto3
+from botocore.exceptions import ClientError
+from dotenv import load_dotenv
+import csv
+
+collection = db.chatbot_input
+
+def csv_to_json():
+    csv_file_path = r'backend\inputs\Applebead.28-02-2023 breakdown.csv'  # Replace with the path to your CSV file
+    csv_data = []
+
+    with open(csv_file_path, mode='r') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+            csv_data.append(row)
+
+    csv_data_as_string = json.dumps(csv_data)
+    return csv_data_as_string
+
+
+def call_anthropic(question):
+    prompt = f"\n\nHuman: {question}\n\nAssistant:"
+
+    # Defaults
+    ENDPOINT_URL = os.environ.get("ENDPOINT_URL", "https://api.anthropic.com/v1/complete")
+    DEFAULT_MODEL = os.environ.get("DEFAULT_MODEL","claude-2")
+
+    # set model params
+    data = {
+        "model": DEFAULT_MODEL,
+        "temperature": 0,
+        "max_tokens_to_sample": 128
+    }
+
+    data["prompt"] = prompt
+
+    headers = {
+        "anthropic-version": "2023-06-01", 
+        "x-api-key": "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",
+        "content-type": "application/json",
+        "accept": "application/json"
+    }
+    http = urllib3.PoolManager()
+    try:
+        response = http.request(
+            "POST",
+            ENDPOINT_URL,
+            body=json.dumps(data),
+            headers=headers
+        )
+        if response.status != 200:
+            raise Exception(f"Error: {response.status} - {response.data}")
+        # print(response.data)
+        generated_text = json.loads(response.data)["completion"].strip()
+        print(generated_text)
+        return generated_text
+    except Exception as err:
+        print(err)
+        raise
+
 
 def response_pd(query):
     load_dotenv()
@@ -32,6 +94,7 @@ def response_pd(query):
 
     response = agent({"input":query})
     return response["output"]
+
 
 def retrieve_pd():
     distinct_filenames = collection.distinct("filename")
