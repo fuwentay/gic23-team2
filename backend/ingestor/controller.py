@@ -4,6 +4,7 @@ from database import db
 
 ingestor_blueprint = Blueprint("instruments", __name__)
 collection = db.instruments
+collection_p = db.positions
 
 @ingestor_blueprint.route("/", methods = ["GET"])
 def index():
@@ -39,3 +40,18 @@ def deleteAll():
         return delete_all(collection)
     else:
         return unsupported_method()
+
+@ingestor_blueprint.route("/hello", methods=["GET"])
+def readFromCSV():
+    if request.method == "GET":
+        return csv_to_db(collection_p)
+        # return "Hello"
+    else:
+        return unsupported_method()
+ 
+# @ingestor_blueprint.route("/hello", methods=["POST"])
+# def readFromCSV():
+#     if request.method == "POST":
+#         return csv_to_db(collection_p)
+#     else:
+#         return unsupported_method()

@@ -7,9 +7,92 @@ from bson.objectid import ObjectId
 from .fileParser import *
 from response import make_json_response
 import pandas as pd
-
+import os
 from database import db
+from dateutil import parser
+from datetime import datetime
+
 collection2 = db.chatbot_input
+collection_p = db.positions
+
+def getFundId(file_path):
+    dictFund = {'Trustmind':1, 'Virtous':2, 'Wallington':3, 'Gohen':4, 'Catalysm':5, 'Belaware': 6, 'Whitestone': 7, 'Leeder': 8, 'Magnum': 9, 'Applebead': 10}
+    for i in dictFund:
+        if i in file_path:
+            return dictFund[i]
+
+
+
+
+
+# determine instrumentId
+def mapInstrumentType(instrument_type):
+    dictInstrument = {'Equities': 1, 'Government Bond': 2, 'CASH': 3}
+    return dictInstrument.get(instrument_type, None)
+
+
+def getReportedDate(file_path):
+    split_path = file_path.split(".")[1]
+    splitted_path = split_path.split()[0]
+    date = parser.parse(splitted_path)
+    datestr = date.strftime("%Y-%m-%d")
+    return datestr
+
+
+def read_from_csv(file_path):
+    csv_file_path = file_path  # Replace with the path to your CSV file
+
+    # Read the CSV file into a pandas DataFrame
+    df = pd.read_csv(csv_file_path)
+
+    # Create a dictionary for renaming columns
+    column_mapping = {'FINANCIAL TYPE': 'financialType', 'SYMBOL': 'symbol', 'SECURITY NAME': 'securityName', 'PRICE': 'price', 'QUANTITY': 'quantity', 'REALISED P/L': 'realisedProfitLoss', 'MARKET VALUE': 'marketValue'}
+
+    # Use the rename method to rename columns
+    df.rename(columns=column_mapping, inplace=True)
+
+    # Adding fundId attribute
+    new_column_header = 'fundId'
+    new_column_value = getFundId(file_path)
+    df[new_column_header] = new_column_value
+
+    # Adding instrumentId attribute
+    df['instrumentId'] = df['financialType'].apply(mapInstrumentType)
+
+    # Adding reportedDate attribute
+    new_column_header_date = 'reportedDate'
+    new_column_value_date = getReportedDate(file_path)
+    df[new_column_header_date] = new_column_value_date
+
+    # Adding createdAt and modifiedAt attribute
+    new_column_header_createdAt = 'createdAt'
+    new_column_header_modifiedAt = 'modifiedAt'
+    current_datetime = datetime.now()
+    formatted_datetime = current_datetime.strftime('%Y-%m-%dT%H:%M:%S')
+    new_column_value_createdmodified = formatted_datetime  
+    df[new_column_header_createdAt] = new_column_value_createdmodified
+    df[new_column_header_modifiedAt] = new_column_value_createdmodified
+
+    data_dict = df.to_dict(orient='records')
+
+    return data_dict
+
+
+def csv_to_db(collection):
+    # # Check if the folder path exists
+    folder_path = "backend\inputs"
+    if os.path.exists(folder_path):
+        # Iterate through the files in the folder and upload them to MongoDB
+        for filename in os.listdir(folder_path):
+            file_path = os.path.join(folder_path, filename)
+            if os.path.isfile(file_path):
+                json_file = read_from_csv(file_path)
+                collection.insert_many(json_file)
+                print(f"Uploaded: {filename}")
+        return "Successful"
+    else:
+        print(f"The specified folder '{folder_path}' does not exist.")
+
 
 def get_all(collection):
     cursor = collection.find()
@@ -95,3 +178,7 @@ def insert_and_get(rows, collection):
     insertedRowsCursor = collection.find({"_id": {"$in": insertManyResult.inserted_ids}})
     
     return json_util.dumps(list(insertedRowsCursor))
+
+
+
+
