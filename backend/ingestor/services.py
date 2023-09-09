@@ -121,7 +121,7 @@ def read_from_csv(file_path):
     df = pd.read_csv(csv_file_path)
 
     # Create a dictionary for renaming columns
-    column_mapping = {'FINANCIAL TYPE': 'instrumentType', 'SYMBOL': 'symbol', 'SECURITY NAME': 'securityName', 'PRICE': 'price', 'QUANTITY': 'quantity', 'REALISED P/L': 'realisedProfitLoss', 'MARKET VALUE': 'marketValue'}
+    column_mapping = {'FINANCIAL TYPE': 'instrumentType', 'SYMBOL': 'symbol', 'SECURITY NAME': 'instrumentName', 'PRICE': 'price', 'QUANTITY': 'quantity', 'REALISED P/L': 'realisedProfitLoss', 'MARKET VALUE': 'marketValue'}
 
     # Use the rename method to rename columns
     df.rename(columns=column_mapping, inplace=True)
