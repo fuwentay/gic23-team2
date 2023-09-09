@@ -1,15 +1,15 @@
 # Set base image (host OS)
 FROM python:alpine3.8
 
-# Copy the content of the project directory to the working directory
-COPY . /app
-
 # Set the working directory in the container
 WORKDIR /app
 
+# Copy the content of the project directory to the working directory
+COPY . /app
+
 RUN pip install --upgrade pip
 # Install any dependencies
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Specify the Flask environment port
 ENV PORT 5000
