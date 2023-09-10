@@ -13,13 +13,13 @@ function ChatUI() {
     const intervalId = setInterval(() => {
       fetchMessages();
     }, 1000); // Polling every 1 second (adjust the interval as necessary)
-  
+
     // Clean up the interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
 
   function fetchMessages() {
-    fetch('http://0.0.0.0:9000/chatbot/getAllMessages')
+    fetch('http://3.0.49.217:9000/chatbot/getAllMessages')
       .then(response => response.json())
       .then(data => {
         // Only update the state if there are new messages or answers
@@ -38,7 +38,7 @@ function ChatUI() {
         sender: 'user',
       };
 
-      fetch('http://0.0.0.0:9000/chatbot/insertMessages', {
+      fetch('http://3.0.49.217:9000/chatbot/insertMessages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
