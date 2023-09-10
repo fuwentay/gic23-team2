@@ -166,8 +166,6 @@ function Analytics() {
 
           </Card>
         </SuiBox>
-        <PieChart></PieChart>
-
         <SuiBox mb={3}>
 
           <Card>

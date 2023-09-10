@@ -122,7 +122,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
             payment
           </Icon>
         }
-        title={["", "Payment successfully completed"]}
+        title={["", "Instruments Moth"]}
         date="2 days"
         onClick={handleCloseMenu}
       />
@@ -151,20 +151,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
             <SuiBox
               color={light ? "white" : "inherit"}
               customClass={classes.navbar_section_desktop}
-            >
-              <Link to="/authentication/sign-in/basic">
-                <IconButton className={classes.navbar_icon_button}>
-                  <Icon className={light ? "text-white" : "text-dark"}>account_circle</Icon>
-                  <SuiTypography
-                    variant="button"
-                    fontWeight="medium"
-                    textColor={light ? "white" : "dark"}
-                  >
-                    Sign in
-                  </SuiTypography>
-                </IconButton>
-              </Link>
-              <IconButton
+            >              <IconButton
                 size="small"
                 color="inherit"
                 className={classes.navbar_mobile_menu}
