@@ -38,9 +38,6 @@ function Instruments() {
   const [insertedRows, setInsertedRows] = useState([]);
   const [data, setData] = useState([]);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   useEffect(() => {
     fetchMessages();
   }, []);
