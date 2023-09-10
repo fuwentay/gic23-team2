@@ -43,7 +43,6 @@ def get_fund_id(file_path, fundsCollection):
     fund_name = get_fund_name(file_path)
     document = fundsCollection.find_one({ "fund": fund_name })
     if document:
-        return document["_id"]
+        return document["fundId"]
     else:
-        insertResult = fundsCollection.insert_one({ "fund": fund_name })
-        return insertResult.inserted_id
+        return -1
