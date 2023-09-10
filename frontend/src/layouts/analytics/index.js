@@ -17,7 +17,7 @@ import styles from "layouts/instruments/styles";
 // Data
 import instrumentTable from "layouts/analytics/data/instrumentTable";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
@@ -72,13 +72,21 @@ function Analytics() {
   };
 
 
-  const handleChatbotClick = () => {
-    setCardOpen(prevState => !prevState);
-  };
 
-  const handleInstumentsOpen = () => {
-    setInstrumentOpen(prevState => !prevState);
-  };
+
+  useEffect(() => {
+    fetchMessages();
+  }, []);
+
+  function fetchMessages() {
+    fetch('http://3.0.49.217:9000/instruments/')
+      .then(response => response.json())
+      .then(data => {
+        const dataArray = JSON.parse(data.data);
+        setData(dataArray);
+      })
+      .catch(error => console.error('Error fetching messages:', error));
+  }
 
 
   return (
