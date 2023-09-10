@@ -63,7 +63,7 @@ function BarChart() {
     };
 
 
-    fetch('http://13.214.177.215:9000/instruments/')
+    fetch('/instruments/')
         .then(response => response.json())
         .then(data => {
             const series = data.map(item => ({
