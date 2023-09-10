@@ -19,7 +19,7 @@ function ChatUI() {
   }, []);
 
   function fetchMessages() {
-    fetch('/chatbot/getAllMessages')
+    fetch('http://3.0.49.217/chatbot/getAllMessages')
       .then(response => response.json())
       .then(data => {
         // Only update the state if there are new messages or answers
@@ -38,7 +38,7 @@ function ChatUI() {
         sender: 'user',
       };
 
-      fetch('/chatbot/insertMessages', {
+      fetch('http://3.0.49.217/chatbot/insertMessages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
