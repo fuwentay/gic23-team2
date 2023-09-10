@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 // Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
+import SuiInput from "components/SuiInput";
 
 // Soft UI Dashboard React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -49,6 +50,8 @@ export default function Analytics() {
   const [topn, setTopn] = React.useState('10');
   const [countryData, setCountryData] = useState([])
   const [fundId, setFundId] = useState(0)
+  const [sectorData, setSectorData] = useState([])
+  const [instrumentData, setInstrumentData] = useState([])
   const [isCheckedInstruform, setIsCheckedInstruform] = useState(false);
   const [isCheckedCountryform, setIsCheckedCountryform] = useState(false);
   const [isCheckedSectorform, setIsCheckedSectorform] = useState(false);
@@ -75,7 +78,8 @@ export default function Analytics() {
 
 
   async function fetchAggregate(aggregate_key, id, date, setData) {
-    fetch(`/analytics/${aggregate_key}/${id}/${date}`)
+    const res = await fetch(`/analytics/${aggregate_key}/${id}/${date}`);
+    setData(res.data)
   }
 
 
@@ -100,17 +104,17 @@ export default function Analytics() {
       case 'instruform':
         setIsCheckedInstruform(!isCheckedInstruform);
         if (!isCheckedInstruform)
-          await fetchAggregate('instrumentId', fundId, dayjs().format("YYYY-MM-DD"), setCountry)
+          await fetchAggregate('instrumentId', fundId, dayjs().format("YYYY-MM-DD"), setInstrumentData)
         break;
       case 'countryform':
         setIsCheckedCountryform(!isCheckedCountryform);
         if (!isCheckedCountryform)
-          await fetchAggregate('country', fundId, dayjs())
+          await fetchAggregate('country', fundId, dayjs().format("YYYY-MM-DD"), setCountryData)
         break;
       case 'sectorform':
         setIsCheckedSectorform(!isCheckedSectorform);
         if (!isCheckedSectorform)
-          await fetchAggregate('sector', fundId, dayjs())
+          await fetchAggregate('sector', fundId, dayjs().format("YYYY-MM-DD"), setSectorData)
         break;
       default:
         break;
@@ -145,6 +149,10 @@ export default function Analytics() {
                       control={<Checkbox id="sectorform" checked={isCheckedSectorform} onChange={handleCheckboxChange} />}
                       label="Sector"
                     />
+                    <SuiInput
+                      style={{ height: 42, width: 200 }}
+                      value={fundId}
+                      onChange={(e) => setFundId(e.target.value)} />
                   </Box>
                 </Box>
               </Box>
@@ -164,7 +172,7 @@ export default function Analytics() {
             <SuiBox>
               <Card style={{ borderRadius: 0 }}>
                 <TableComponent
-                  data={countryData} />
+                  data={instrumentData} />
                 <ChatbotButton></ChatbotButton>
                 <SuiBox sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: "0px" }} >
                 </SuiBox>
@@ -173,13 +181,15 @@ export default function Analytics() {
             </SuiBox>
             <Card style={{ borderRadius: 0 }}>
               <SuiBox>
-                <TableComponent></TableComponent>
+                <TableComponent
+                  data={countryData} />
                 <ChatbotButton></ChatbotButton>
               </SuiBox>
             </Card>
             <Card style={{ borderRadius: 0, boxShadow: 'none' }}>
               <SuiBox mb={0}>
-                <TableComponent></TableComponent>
+                <TableComponent
+                  data={sectorData} />
                 <ChatbotButton></ChatbotButton>
               </SuiBox>
             </Card>
