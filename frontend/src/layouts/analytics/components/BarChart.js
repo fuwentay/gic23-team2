@@ -9,12 +9,10 @@ function BarChart() {
             type: 'bar'
         },
         title: {
-            align: 'left'
+            text:""
         },
         subtitle: {
-            text: 'Source: <a ' +
-                'href="https://en.wikipedia.org/wiki/List_of_continents_and_continental_subregions_by_population"' +
-                'target="_blank">Wikipedia.org</a>',
+            text: '',
             align: 'left'
         },
         xAxis: {
@@ -48,18 +46,7 @@ function BarChart() {
                 groupPadding: 0.1
             }
         },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'top',
-            x: -40,
-            y: 80,
-            floating: true,
-            borderWidth: 1,
-            backgroundColor:
-                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-            shadow: true
-        },
+
         credits: {
             enabled: false
         },

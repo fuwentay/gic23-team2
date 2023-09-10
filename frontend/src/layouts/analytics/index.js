@@ -43,15 +43,11 @@ function Analytics() {
   const classes = styles();
   const { columns: prCols, rows: prRows } = instrumentTable;
   const [value, setValue] = React.useState(dayjs('year-month-day'));
-  const [fundId, setFundId] = React.useState(1);
   const [instrument, setInstrument] = React.useState('');
   const [country, setCountry] = React.useState('');
   const [sector, setSector] = React.useState('');
   const [isCardOpen, setCardOpen] = useState(false);
   const [topn, setTopn] = React.useState('10');
-  const [isCheckedInstruform, setIsCheckedInstruform] = useState(false);
-  const [isCheckedCountryform, setIsCheckedCountryform] = useState(false);
-  const [isCheckedSectorform, setIsCheckedSectorform] = useState(false);
 
 
   const [isInstrumentOpen, setInstrumentOpen] = useState(true);
@@ -102,20 +98,7 @@ function Analytics() {
           <FormControlLabel control={<Checkbox defaultChecked />} label="Sector" onClick={handleSectorOpen} />
         </Box>
               </Box>
-              <FormControl width='40px'>
-                <DemoItem label="Fund ID"></DemoItem>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={topn}
-                  label="Top N"
-                  onChange={handleChangeId}
-                >
-                  <MenuItem value={10}>10</MenuItem>
-                  <MenuItem value={20}>20</MenuItem>
-                  <MenuItem value={30}>30</MenuItem>
-                </Select>
-              </FormControl>
+
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DesktopDatePicker']}>
                   <DemoItem label="Start Date" sx={{ mb: "2px" }} >
@@ -215,7 +198,7 @@ function Analytics() {
                     id="demo-simple-select"
                     value={topn}
                     label="Top N"
-                    onChange={handleChangeTopN}
+                    onChange={handleChange}
                   >
                     <MenuItem value={10}>10</MenuItem>
                     <MenuItem value={20}>20</MenuItem>
