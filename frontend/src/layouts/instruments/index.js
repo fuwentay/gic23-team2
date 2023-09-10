@@ -43,7 +43,7 @@ function Instruments() {
   }, []);
 
   function fetchMessages() {
-    fetch('http://3.0.49.217:9000/instruments/')
+    fetch('/instruments/')
       .then(response => response.json())
       .then(data => {
         const dataArray = JSON.parse(data.data);

@@ -18,4 +18,4 @@ app.register_blueprint(price_values_blueprint, url_prefix='/price_values')
 app.register_blueprint(analytics_blueprint, url_prefix='/analytics')
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=9000)
+    app.run(host="0.0.0.0", port=80)
