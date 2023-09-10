@@ -90,15 +90,6 @@ const routes = [
     component: Analytics,
     noCollapse: true,
   },
-  {
-    type: "collapse",
-    name: "Chatbot",
-    key: "chatbot",
-    route: "/chatbot",
-    icon: <Settings size="12px" />,
-    component: Chatbot,
-    noCollapse: true,
-  },
 ];
 
 export default routes;
