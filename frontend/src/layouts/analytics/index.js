@@ -36,10 +36,9 @@ import DetailsCard from "./components/detailsCard";
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import BarChart from "./components/BarChart";
-import PieChart from "./components/PieChart";
+import { get } from '../../api/api';
 
-function Analytics() {
+export default function Analytics() {
   const classes = styles();
   const { columns: prCols, rows: prRows } = instrumentTable;
   const [value, setValue] = React.useState(dayjs('year-month-day'));
@@ -48,30 +47,35 @@ function Analytics() {
   const [sector, setSector] = React.useState('');
   const [isCardOpen, setCardOpen] = useState(false);
   const [topn, setTopn] = React.useState('10');
+  const [countryData, setCountryData] = useState([])
+  const [isCheckedInstruform, setIsCheckedInstruform] = useState(false);
+  const [isCheckedCountryform, setIsCheckedCountryform] = useState(false);
+  const [isCheckedSectorform, setIsCheckedSectorform] = useState(false);
 
-
-  const [isInstrumentOpen, setInstrumentOpen] = useState(true);
-  const [isCountryOpen, setCountryOpen] = useState(true);
-  const [isSectorOpen, setSectorOpen] = useState(true);
-
-  const handleChange = (event) => {
+  const handleChangeTopN = (event) => {
     setTopn(event.target.value);
   };
 
-
-  const handleInstrumentsOpen = () => {
-    setInstrumentOpen((prev) => !prev);
+  const handleChangeInstrument = (event) => {
+    setInstrument(event.target.value);
   };
 
-  const handleCountryOpen = () => {
-    setCountryOpen((prev) => !prev);
+  const handleChangeCountry = (event) => {
+    setCountry(event.target.value);
   };
 
-  const handleSectorOpen = () => {
-    setSectorOpen((prev) => !prev);
+  const handleChangeSector = (event) => {
+    setSector(event.target.value);
+  };
+
+  const handleChatbotClick = () => {
+    setCardOpen(prevState => !prevState);
   };
 
 
+  async function fetchAggregate(aggregate_key, id, date, setData) {
+    fetch(`/analytics/${aggregate_key}/${id}/${date}`)
+  }
 
 
   useEffect(() => {
@@ -88,6 +92,33 @@ function Analytics() {
       .catch(error => console.error('Error fetching messages:', error));
   }
 
+  const handleCheckboxChange = async (event) => {
+    const { id } = event.target;
+
+    switch (id) {
+      case 'instruform':
+        setIsCheckedInstruform(!isCheckedInstruform);
+        if (!isCheckedInstruform) 
+          await fetchAggregate('instrumentId', fundId, dayjs().format("YYYY-MM-DD"), setCountry)
+        break;
+      case 'countryform':
+        setIsCheckedCountryform(!isCheckedCountryform);
+        if (!isCheckedCountryform)
+          await fetchAggregate('country', fundId, dayjs())
+        break;
+      case 'sectorform':
+        setIsCheckedSectorform(!isCheckedSectorform);
+        if (!isCheckedSectorform)
+          await fetchAggregate('sector', fundId, dayjs())
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleChangeId = (event) => {
+    setFundId(event.target.value);
+  };
 
   return (
     <DashboardLayout>
@@ -100,11 +131,24 @@ function Analytics() {
                 <SuiTypography variant="h5" fontWeight="bold" >
                   Aggregated View
                 </SuiTypography>
-                <Box sx={{ minWidth: 100, display: 'flex', flexDirection: 'row' }}>
-          <FormControlLabel control={<Checkbox defaultChecked />} label="Instruments" onClick={handleInstrumentsOpen} />
-          <FormControlLabel control={<Checkbox defaultChecked />} label="Country" onClick={handleCountryOpen} />
-          <FormControlLabel control={<Checkbox defaultChecked />} label="Sector" onClick={handleSectorOpen} />
-        </Box>
+                <Box sx={{ marginLeft: "10px", marginTop: "12px" }}>
+                  <Box sx={{ minWidth: 100, display: 'flex', flexDirection: 'row' }}>
+                    <FormControlLabel
+                      control={<Checkbox id="instruform" checked={isCheckedInstruform} onChange={handleCheckboxChange} />}
+                      label="Instruments"
+                    />
+                    <FormControlLabel
+                      id="countryform"
+                      control={<Checkbox id="countryform" checked={isCheckedCountryform} onChange={handleCheckboxChange} />}
+                      label="Country"
+                    />
+                    <FormControlLabel
+                      id="sectorform"
+                      control={<Checkbox id="sectorform" checked={isCheckedSectorform} onChange={handleCheckboxChange} />}
+                      label="Sector"
+                    />
+                  </Box>
+                </Box>
               </Box>
 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -120,49 +164,39 @@ function Analytics() {
             </SuiBox>
 
             <SuiBox>
-            <Box>
-                <Card style={{ borderRadius: 0 }}>
-                  {isInstrumentOpen && (
-                    <>
-                      <TableComponent></TableComponent>
-                      <ChatbotButton></ChatbotButton>
-                    </>
-                  )}
-                  <SuiBox sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: "0px" }} >
-                  </SuiBox>
-                </Card>
-              </Box>
-           
+              <Card style={{ borderRadius: 0 }}>
+                <TableComponent
+                  data={countryData}/>
+                <ChatbotButton></ChatbotButton>
+                <SuiBox sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: "0px" }} >
+                </SuiBox>
+              </Card>
 
             </SuiBox>
-            <SuiBox>
-        <Box>
-          <Card style={{ borderRadius: 0 }}>
-            {isCountryOpen && (
-              <>
+            <Card style={{ borderRadius: 0 }}>
+              <SuiBox>
                 <TableComponent></TableComponent>
                 <ChatbotButton></ChatbotButton>
-              </>
-            )}
-            <SuiBox sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: "0px" }} />
-          </Card>
-        </Box>
-      </SuiBox>
-
-
-      <SuiBox>
-        <Box>
-          <Card style={{ borderRadius: 0 }}>
-            {isSectorOpen && (
-              <>
+              </SuiBox>
+            </Card>
+            <Card style={{ borderRadius: 0, boxShadow: 'none' }}>
+              <SuiBox mb={0}>
                 <TableComponent></TableComponent>
                 <ChatbotButton></ChatbotButton>
-              </>
-            )}
-            <SuiBox sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: "0px" }} />
-          </Card>
-        </Box>
-      </SuiBox>
+              </SuiBox>
+            </Card>
+
+            <SuiBox mb={3}>
+              <Grid container spacing={3}>
+                <Grid item xs={8}>
+                  <Card className="h-100" style={{ paddingLeft: '10px' }}>
+                  </Card>
+                </Grid>
+                <Grid item xs={4}>
+                  <detailsCard></detailsCard>
+                </Grid>
+              </Grid>
+            </SuiBox>
 
           </Card>
         </SuiBox>
@@ -185,7 +219,7 @@ function Analytics() {
               </LocalizationProvider>
             </SuiBox>
             <SuiTypography >
-              <BarChart></BarChart>
+              ----bar chart? both Instrument and Fund
             </SuiTypography>
           </Card>
         </SuiBox>
@@ -204,7 +238,7 @@ function Analytics() {
                     id="demo-simple-select"
                     value={topn}
                     label="Top N"
-                    onChange={handleChange}
+                    onChange={handleChangeTopN}
                   >
                     <MenuItem value={10}>10</MenuItem>
                     <MenuItem value={20}>20</MenuItem>
@@ -227,5 +261,3 @@ function Analytics() {
     </DashboardLayout >
   );
 }
-
-export default Analytics;
