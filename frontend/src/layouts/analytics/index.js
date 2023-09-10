@@ -48,6 +48,7 @@ export default function Analytics() {
   const [isCardOpen, setCardOpen] = useState(false);
   const [topn, setTopn] = React.useState('10');
   const [countryData, setCountryData] = useState([])
+  const [fundId, setFundId] = useState(0)
   const [isCheckedInstruform, setIsCheckedInstruform] = useState(false);
   const [isCheckedCountryform, setIsCheckedCountryform] = useState(false);
   const [isCheckedSectorform, setIsCheckedSectorform] = useState(false);
@@ -56,8 +57,8 @@ export default function Analytics() {
     setTopn(event.target.value);
   };
 
-  const handleChangeInstrument = (event) => {
-    setInstrument(event.target.value);
+  const handleChangeId = (event) => {
+    setFundId(event.target.value);
   };
 
   const handleChangeCountry = (event) => {
@@ -98,7 +99,7 @@ export default function Analytics() {
     switch (id) {
       case 'instruform':
         setIsCheckedInstruform(!isCheckedInstruform);
-        if (!isCheckedInstruform) 
+        if (!isCheckedInstruform)
           await fetchAggregate('instrumentId', fundId, dayjs().format("YYYY-MM-DD"), setCountry)
         break;
       case 'countryform':
@@ -116,9 +117,6 @@ export default function Analytics() {
     }
   };
 
-  const handleChangeId = (event) => {
-    setFundId(event.target.value);
-  };
 
   return (
     <DashboardLayout>
@@ -166,7 +164,7 @@ export default function Analytics() {
             <SuiBox>
               <Card style={{ borderRadius: 0 }}>
                 <TableComponent
-                  data={countryData}/>
+                  data={countryData} />
                 <ChatbotButton></ChatbotButton>
                 <SuiBox sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: "0px" }} >
                 </SuiBox>
@@ -219,7 +217,7 @@ export default function Analytics() {
               </LocalizationProvider>
             </SuiBox>
             <SuiTypography >
-              ----bar chart? both Instrument and Fund
+              {/* <BarChart /> */}
             </SuiTypography>
           </Card>
         </SuiBox>
