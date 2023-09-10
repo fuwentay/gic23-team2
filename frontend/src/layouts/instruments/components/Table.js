@@ -22,7 +22,7 @@ import SuiBox from "components/SuiBox";
 // Custom styles for the Tables
 import styles from "layouts/instruments/styles";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ImportPopup from "./ImportPopup";
 import FilterSortTable from "../../../components/FilterSortTable"
 
@@ -35,13 +35,45 @@ function Table({ data = [] }) {
     const handleClose = () => setOpen(false);
 
     function getColumns() {
-        if (insertedRows.length === 0) return [];
-        else return Object.keys(insertedRows[0])
-            .filter(columnName => columnName != "_id")
-            .map((columnName) => {
-                return { id: columnName, label: columnName }
-            })
+        if (!data || data.length === 0) return [];
+        else {
+            const firstObject = data[0];
+            return Object.keys(firstObject)
+                .filter(columnName => columnName !== "_id")
+                .map((columnName) => {
+                    return { id: columnName, label: columnName };
+                });
+        }
     }
+
+    function getRows(data) {
+        if (!Array.isArray(data)) {
+            return [];
+        }
+
+        const rows = data.map(item => {
+            const { _id, ...rowData } = item;
+
+            if (_id && _id.$oid) {
+                rowData._id = _id.$oid;
+            }
+
+            if (item.createdAt && item.createdAt.$date) {
+                rowData.createdAt = item.createdAt.$date;
+            }
+            if (item.modifiedAt && item.modifiedAt.$date) {
+                rowData.modifiedAt = item.modifiedAt.$date;
+            }
+
+            return rowData;
+        });
+
+        return rows;
+    }
+
+    useEffect(() => {
+        setInsertedRows(getRows(data));
+    }, [data]);
 
     return (
         <div>
