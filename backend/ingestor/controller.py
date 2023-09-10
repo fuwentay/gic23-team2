@@ -8,12 +8,12 @@ instrumentsCollection = db.instruments
 priceCollection = db.price
 positionsCollection = db.positions
 
-@ingestor_blueprint.route("/insertFromCsv", methods=["POST"])
-def insertFromFilePD():
-    if request.method == "POST":
-        return insert_from_file_pd(request, instrumentsCollection, positionsCollection)
-    else:
-        return unsupported_method()
+# @ingestor_blueprint.route("/insertFromCsv", methods=["POST"])
+# def insertFromFilePD():
+#     if request.method == "POST":
+#         return insert_from_file_pd(request, instrumentsCollection, positionsCollection)
+#     else:
+#         return unsupported_method()
 
 @ingestor_blueprint.route("/insertFromApi", methods=["POST"])
 def insertFromApi():
@@ -31,9 +31,9 @@ def insertFromDb():
     else:
         return unsupported_method()
 
-@ingestor_blueprint.route("/hello", methods=["GET"])
+@ingestor_blueprint.route("/insertFromCsv", methods=["POST"])
 def readFromCSV():
-    if request.method == "GET":
+    if request.method == "POST":
         return csv_to_db(positionsCollection)
     else:
         return unsupported_method()
