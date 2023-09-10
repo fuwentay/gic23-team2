@@ -46,11 +46,11 @@ function Instruments() {
   }, []);
 
   function fetchMessages() {
-    fetch('http://0.0.0.0:9000/instruments/')
+    fetch('http://13.214.177.215:9000/instruments/')
       .then(response => response.json())
       .then(data => {
-        setData(data);
-        console.log(data);
+        const dataArray = JSON.parse(data.data);
+        setData(dataArray);
       })
       .catch(error => console.error('Error fetching messages:', error));
   }
