@@ -2,37 +2,103 @@ from bson import json_util
 from bson.objectid import ObjectId
 from response import make_json_response
 from database import db
+# from documentdb import db
 
 positionsCollection = db.positions
 priceCollection = db.price
 
 def get_fund_aggregate(fundId, upperBoundDate, aggregateKey):
+    # pipeline = [
+    #     {
+    #         "$match": {
+    #             # "fundId": fundId,
+    #             "reportedDate": {"$lt": upperBoundDate}
+    #         }
+    #     }
+    # ]
+
+    # match_result = list(positionsCollection.aggregate(pipeline))
+    # aggregated_dict = {}
+    # for doc in match_result:
+    #     if doc[aggregateKey] in aggregated_dict:
+    #         if doc["instrumentType"] == "CASH":
+    #             aggregated_dict[doc[aggregateKey]] += doc["marketValue"]
+    #             continue
+    #         # aggregated_dict[doc[aggregateKey]] += doc["quantity"] * get_latest_instrument_price(doc, upperBoundDate, priceCollection)
+    #         aggregated_dict[doc[aggregateKey]] += doc["marketValue"]
+    #     else:
+    #         if doc["instrumentType"] == "CASH":
+    #             aggregated_dict[doc[aggregateKey]] = doc["marketValue"]
+    #             continue
+    #         # aggregated_dict[doc[aggregateKey]] = doc["quantity"] * get_latest_instrument_price(doc, upperBoundDate, priceCollection)
+    #         aggregated_dict[doc[aggregateKey]] = doc["marketValue"]
+
+    # return make_json_response(aggregated_dict, 200)
     pipeline = [
         {
-            "$match": {
-                # "fundId": fundId,
-                "reportedDate": {"$lt": upperBoundDate}
+            "$lookup": {
+                "from": "instruments",
+                "localField": "instrumentId",
+                "foreignField": "_id",
+                "as": "instrument_data"
+            }
+        },
+        {
+            "$unwind": "$instrument_data"
+        },
+        {
+            "$lookup": {
+                "from": "price",
+                "let": {
+                    "isinCode": "$instrument_data.isinCode",
+                    "symbol": "$instrument_data.symbol"
+                },
+                "pipeline": [
+                    {
+                        "$match": {
+                            "$expr": {
+                                "$or": [
+                                    {"$eq": ["$isinCode", "$$isinCode"]},
+                                    {"$eq": ["$symbol", "$$symbol"]},
+                                    {"$eq": ["$isinCode", "$$symbol"]},
+                                    {"$eq": ["$symbol", "$$isinCode"]}
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "$match": {
+                            "reportedDate": {"$lte": upperBoundDate}
+                        }
+                    },
+                    {
+                        "$sort": {
+                            "reportedDate": -1
+                        }
+                    },
+                    {
+                        "$limit": 1
+                    }
+                ],
+                "as": "price_data"
+            }
+        },
+        {
+            "$unwind": "$price_data"
+        },
+        {
+            "$group": {
+                "_id": f"$instrument_data.{aggregateKey}",
+                "totalMarketValue": {
+                    "$sum": {
+                        "$multiply": ["$quantity", "$price_data.unitPrice"]
+                    }
+                }
             }
         }
     ]
-
-    match_result = list(positionsCollection.aggregate(pipeline))
-    aggregated_dict = {}
-    for doc in match_result:
-        if doc[aggregateKey] in aggregated_dict:
-            if doc["instrumentType"] == "CASH":
-                aggregated_dict[doc[aggregateKey]] += doc["marketValue"]
-                continue
-            # aggregated_dict[doc[aggregateKey]] += doc["quantity"] * get_latest_instrument_price(doc, upperBoundDate, priceCollection)
-            aggregated_dict[doc[aggregateKey]] += doc["marketValue"]
-        else:
-            if doc["instrumentType"] == "CASH":
-                aggregated_dict[doc[aggregateKey]] = doc["marketValue"]
-                continue
-            # aggregated_dict[doc[aggregateKey]] = doc["quantity"] * get_latest_instrument_price(doc, upperBoundDate, priceCollection)
-            aggregated_dict[doc[aggregateKey]] = doc["marketValue"]
-
-    return make_json_response(aggregated_dict, 200)
+    result = list(positionsCollection.aggregate(pipeline))
+    return make_json_response(result, 200)
 
 def get_latest_instrument_price(document, upperBoundDate):
     pipeline = [
@@ -93,62 +159,88 @@ def get_total_investment_returns_funds(lowerDate, upperDate):
     pipeline = [
         {
             "$match": {
-                "reportedDate": {"$gt": lowerDate, "$lte": upperDate}
+                "reportedDate": {
+                    "$gt": lowerDate,
+                    "$lte": upperDate
+                }
             }
         },
         {
-            "$sort": {
-                "reportedDate": 1
-            }
-        },
-        {
-            "$group": {
-                "_id": "$fundId",
-                "earliestReportedDate": {"$first": "$reportedDate"},
-                "marketValue": {"$first": "$marketValue"}
-            }
-        },
-        {
-            "$sort": {
-                "_id": 1  # Sort by fundId in ascending order
-            }
-        },
-    ]
-
-    old_market_values = list(positionsCollection.aggregate(pipeline))
-
-    pipeline = [
-        {
-            "$match": {
-                "reportedDate": {"$gt": lowerDate, "$lte": upperDate}
-            }
-        },
-        {
-            "$sort": {
-                "reportedDate": -1
+            "$project": {
+                "fundId": 1,
+                "marketValue": 1,
+                "year": {"$year": "$reportedDate"},
+                "month": {"$month": "$reportedDate"}
             }
         },
         {
             "$group": {
-                "_id": "$fundId",
-                "latestReportedDate": {"$first": "$reportedDate"},
-                "marketValue": {"$first": "$marketValue"}
+                "_id": {
+                    "fundId": "$fundId",
+                    "year": "$year",
+                    "month": "$month"
+                },
+                "firstDayMarketValue": {"$first": "$marketValue"},
+                "lastDayMarketValue": {"$last": "$marketValue"}
             }
         },
         {
-            "$sort": {
-                "_id": 1  # Sort by fundId in ascending order
+            "$addFields": {
+                "investmentReturn": {
+                    "$divide": [
+                        {"$subtract": ["$lastDayMarketValue", "$firstDayMarketValue"]},
+                        "$firstDayMarketValue"
+                    ]
+                }
             }
         },
+        {
+            "$project": {
+                "_id": 0,
+                "fundId": "$_id.fundId",
+                "year": "$_id.year",
+                "month": "$_id.month",
+                "investmentReturn": 1
+            }
+        }
     ]
-    latest_market_values = list(positionsCollection.aggregate(pipeline))
 
-    returns = {}
+    returns = list(positionsCollection.aggregate(pipeline))
 
-    for oldFund in old_market_values:
-        for newFund in latest_market_values:
-            if oldFund["_id"] == newFund["_id"]:
-                returns[oldFund["_id"]] = newFund["marketValue"]/oldFund["marketValue"] - 1
+    # old_market_values = list(positionsCollection.aggregate(pipeline))
+
+    # pipeline = [
+    #     {
+    #         "$match": {
+    #             "reportedDate": {"$gt": lowerDate, "$lte": upperDate}
+    #         }
+    #     },
+    #     {
+    #         "$sort": {
+    #             "reportedDate": -1
+    #         }
+    #     },
+    #     {
+    #         "$group": {
+    #             "_id": "$fundId",
+    #             "latestReportedDate": {"$first": "$reportedDate"},
+    #             "marketValue": {"$first": "$marketValue"}
+    #         }
+    #     },
+    #     {
+    #         "$sort": {
+    #             "_id": 1  # Sort by fundId in ascending order
+    #         }
+    #     },
+    # ]
+    # latest_market_values = list(positionsCollection.aggregate(pipeline))
+
+    # returns = {}
+
+    # for oldFund in old_market_values:
+    #     for newFund in latest_market_values:
+    #         if oldFund["_id"] == newFund["_id"]:
+    #             returns[oldFund["_id"]] = newFund["marketValue"]/oldFund["marketValue"] - 1
 
     return make_json_response(json_util.dumps(returns), 200)
 
@@ -156,51 +248,107 @@ def get_total_investment_returns_instruments(lowerDate, upperDate):
     pipeline = [
         {
             "$match": {
-                "reportedDate": {"$gt": lowerDate, "$lte": upperDate}
+                "reportedDate": {
+                    "$gt": lowerDate,
+                    "$lte": upperDate
+                }
             }
         },
         {
-            "$sort": {
-                "reportedDate": 1
-            }
-        },
-        {
-            "$group": {
-                "_id": "$instrumentId",
-                # "_id": "$securityName",
-                "marketValue": {"$first": "$marketValue"}
-            }
-        },
-    ]
-
-    old_market_values = list(positionsCollection.aggregate(pipeline))
-    pipeline = [
-        {
-            "$match": {
-                "reportedDate": {"$gt": lowerDate, "$lte": upperDate}
-            }
-        },
-        {
-            "$sort": {
-                "reportedDate": -1
+            "$project": {
+                "instrumentId": 1,
+                "marketValue": 1,
+                "realisedProfitLoss": 1,
+                "year": {"$year": "$reportedDate"},
+                "month": {"$month": "$reportedDate"}
             }
         },
         {
             "$group": {
-                "_id": "$instrumentId",
-                # "_id": "$securityName",
-                "marketValue": {"$first": "$marketValue"},
-                "realisedProfitLoss": {"$first": "$realisedProfitLoss"}
+                "_id": {
+                    "instrumentId": "$instrumentId",
+                    "year": "$year",
+                    "month": "$month"
+                },
+                "firstDayMarketValue": {"$first": "$marketValue"},
+                "lastDayMarketValue": {"$last": "$marketValue"},
+                "realisedProfitLoss": {"$sum": "$realisedProfitLoss"}
             }
         },
+        {
+            "$addFields": {
+                "investmentReturn": {
+                    "$subtract": [
+                        {
+                            "$divide": [
+                                {"$add": ["$lastDayMarketValue", "$realisedProfitLoss"]},
+                                "$firstDayMarketValue"
+                            ]
+                        },
+                        1
+                    ]
+                }
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "fundId": "$_id.fundId",
+                "year": "$_id.year",
+                "month": "$_id.month",
+                "investmentReturn": 1
+            }
+        }
     ]
-    latest_market_values = list(positionsCollection.aggregate(pipeline))
-    returns = {}
+    returns = list(positionsCollection.aggregate(pipeline))
+    # pipeline = [
+    #     {
+    #         "$match": {
+    #             "reportedDate": {"$gt": lowerDate, "$lte": upperDate}
+    #         }
+    #     },
+    #     {
+    #         "$sort": {
+    #             "reportedDate": 1
+    #         }
+    #     },
+    #     {
+    #         "$group": {
+    #             "_id": "$instrumentId",
+    #             # "_id": "$securityName",
+    #             "marketValue": {"$first": "$marketValue"}
+    #         }
+    #     },
+    # ]
 
-    for oldFund in old_market_values:
-        for newFund in latest_market_values:
-            if oldFund["_id"] == newFund["_id"]:
-                returns[oldFund["_id"]] = (newFund["marketValue"] + newFund["realisedProfitLoss"])/oldFund["marketValue"] - 1
+    # old_market_values = list(positionsCollection.aggregate(pipeline))
+    # pipeline = [
+    #     {
+    #         "$match": {
+    #             "reportedDate": {"$gt": lowerDate, "$lte": upperDate}
+    #         }
+    #     },
+    #     {
+    #         "$sort": {
+    #             "reportedDate": -1
+    #         }
+    #     },
+    #     {
+    #         "$group": {
+    #             "_id": "$instrumentId",
+    #             # "_id": "$securityName",
+    #             "marketValue": {"$first": "$marketValue"},
+    #             "realisedProfitLoss": {"$first": "$realisedProfitLoss"}
+    #         }
+    #     },
+    # ]
+    # latest_market_values = list(positionsCollection.aggregate(pipeline))
+    # returns = {}
+
+    # for oldFund in old_market_values:
+    #     for newFund in latest_market_values:
+    #         if oldFund["_id"] == newFund["_id"]:
+    #             returns[oldFund["_id"]] = (newFund["marketValue"] + newFund["realisedProfitLoss"])/oldFund["marketValue"] - 1
 
     return make_json_response(json_util.dumps(returns), 200)
 

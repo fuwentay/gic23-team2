@@ -13,6 +13,13 @@ def getById(id, instrumentId):
     else:
         return unsupported_method()
 
+@funds_blueprint.route("/", methods=['GET'])
+def getAll():
+    if request.method == "GET":
+        return get_all_funds()
+    else:
+        return unsupported_method()
+
 @funds_blueprint.route("/<id>/refresh", methods=['POST'])
 def refresh(id):
     if request.method == "POST":

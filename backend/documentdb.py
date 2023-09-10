@@ -2,7 +2,7 @@
 import pymongo
 import sys
 
-client = pymongo.MongoClient('mongodb://team2:gichackathon@gic-hackathon-ec2.cluster-cf4nwjxkqflm.ap-southeast-1.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false')
+client = pymongo.MongoClient('mongodb://team2:Lmao=2106@gic-hackathon.cluster-cf4nwjxkqflm.ap-southeast-1.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=../global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false')
 
 ##Specify the database to be used
 db = client.sample_database
