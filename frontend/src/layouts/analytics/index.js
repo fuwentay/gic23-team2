@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 // Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
+import SuiInput from "components/SuiInput";
 
 // Soft UI Dashboard React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -46,6 +47,7 @@ export default function Analytics() {
   const [country, setCountry] = React.useState('');
   const [sector, setSector] = React.useState('');
   const [isCardOpen, setCardOpen] = useState(false);
+  const [fundId, setFundId] = useState('');
   const [topn, setTopn] = React.useState('10');
   const [countryData, setCountryData] = useState([])
   const [sectorData, setSectorData] = useState([])
@@ -150,7 +152,11 @@ export default function Analytics() {
                       control={<Checkbox id="sectorform" checked={isCheckedSectorform} onChange={handleCheckboxChange} />}
                       label="Sector"
                     />
-                  </Box>
+                    <SuiInput
+                      style={{ height: 42, width: 200}}
+                      value={fundId}
+                      onChange={(e) => setFundId(e.target.value)} />
+                    </Box>
                 </Box>
               </Box>
 
