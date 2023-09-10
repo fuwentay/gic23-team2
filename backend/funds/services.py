@@ -5,9 +5,14 @@ from ingestor.services import csv_to_db
 from ingestor.fileUtils import *
 
 from database import db
+fundsCollection = db.funds
 
 def get_by_fund_instrument_id(fundId, instrumentId, positionsCollection):
     cursor = positionsCollection.find({"fundId": fundId, "instrumentId": instrumentId})
+    return make_json_response(json_util.dumps(cursor), 200)
+
+def get_all_funds():
+    cursor = fundsCollection.find()
     return make_json_response(json_util.dumps(cursor), 200)
 
 def refresh_by_id(fundIdToRefresh, positionsCollection):
