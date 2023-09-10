@@ -4,14 +4,26 @@ import urllib3
 import boto3
 from botocore.exceptions import ClientError
 from dotenv import load_dotenv
+import logging
+
+ENDPOINT_URL = os.environ.get("ENDPOINT_URL", "https://api.anthropic.com/v1/complete")
+DEFAULT_MODEL = os.environ.get("DEFAULT_MODEL", "claude-2")
+
+headers = {
+        "anthropic-version": "2023-06-01", 
+        "x-api-key": "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",
+        "content-type": "application/json",
+        "accept": "application/json"
+}
+http = urllib3.PoolManager()
+
+answer_cache = {}
 
 def call_anthropic(question):
+    if question in answer_cache:
+        return answer_cache[question]
+
     prompt = f"\n\nHuman: {question}\n\nAssistant:"
-
-    # Defaults
-    ENDPOINT_URL = os.environ.get("ENDPOINT_URL", "https://api.anthropic.com/v1/complete")
-    DEFAULT_MODEL = os.environ.get("DEFAULT_MODEL","claude-2")
-
     # set model params
     data = {
         "model": DEFAULT_MODEL,
@@ -21,13 +33,6 @@ def call_anthropic(question):
 
     data["prompt"] = prompt
 
-    headers = {
-        "anthropic-version": "2023-06-01", 
-        "x-api-key": "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",
-        "content-type": "application/json",
-        "accept": "application/json"
-    }
-    http = urllib3.PoolManager()
     try:
         response = http.request(
             "POST",
@@ -41,14 +46,11 @@ def call_anthropic(question):
         generated_text = json.loads(response.data)["completion"].strip()
         return generated_text
     except Exception as err:
-        print(err)
+        logging.error(err)
         raise
 
-    question = "Where is Singapore?"
     # prompt template for Anthropic - see this page for more info: 
     # https://docs.anthropic.com/claude/docs/constructing-a-prompt#use-the-correct-format
 
-    generated_text = call_anthropic(question)
+    answer_cache[question] = generated_text 
     return generated_text
-    # print(f"Prompt: {prompt}")
-    # print(json.dumps(generated_text))
