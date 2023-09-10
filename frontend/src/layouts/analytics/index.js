@@ -36,6 +36,8 @@ import DetailsCard from "./components/detailsCard";
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import BarChart from "./components/BarChart";
+import PieChart from "./components/PieChart";
 
 function Analytics() {
   const classes = styles();
@@ -47,25 +49,37 @@ function Analytics() {
   const [isCardOpen, setCardOpen] = useState(false);
   const [topn, setTopn] = React.useState('10');
 
+
+  const [isInstrumentOpen, setInstrumentOpen] = useState(true);
+  const [isCountryOpen, setCountryOpen] = useState(true);
+  const [isSectorOpen, setSectorOpen] = useState(true);
+
   const handleChange = (event) => {
     setTopn(event.target.value);
   };
 
-  const handleChangeInstrument = (event) => {
-    setInstrument(event.target.value);
+
+  const handleInstrumentsOpen = () => {
+    setInstrumentOpen((prev) => !prev);
   };
 
-  const handleChangeCountry = (event) => {
-    setCountry(event.target.value);
+  const handleCountryOpen = () => {
+    setCountryOpen((prev) => !prev);
   };
 
-  const handleChangeSector = (event) => {
-    setSector(event.target.value);
+  const handleSectorOpen = () => {
+    setSectorOpen((prev) => !prev);
   };
+
 
   const handleChatbotClick = () => {
     setCardOpen(prevState => !prevState);
   };
+
+  const handleInstumentsOpen = () => {
+    setInstrumentOpen(prevState => !prevState);
+  };
+
 
   return (
     <DashboardLayout>
@@ -78,13 +92,11 @@ function Analytics() {
                 <SuiTypography variant="h5" fontWeight="bold" >
                   Aggregated View
                 </SuiTypography>
-                <Box sx={{ marginLeft: "10px", marginTop: "12px" }}>
-                  <Box sx={{ minWidth: 100, display: 'flex', flexDirection: 'row' }}>
-                    <FormControlLabel control={<Checkbox defaultChecked />} label="Instruments" />
-                    <FormControlLabel control={<Checkbox defaultChecked />} label="Country" />
-                    <FormControlLabel control={<Checkbox defaultChecked />} label="Sector" />
-                  </Box>
-                </Box>
+                <Box sx={{ minWidth: 100, display: 'flex', flexDirection: 'row' }}>
+          <FormControlLabel control={<Checkbox defaultChecked />} label="Instruments" onClick={handleInstrumentsOpen} />
+          <FormControlLabel control={<Checkbox defaultChecked />} label="Country" onClick={handleCountryOpen} />
+          <FormControlLabel control={<Checkbox defaultChecked />} label="Sector" onClick={handleSectorOpen} />
+        </Box>
               </Box>
 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -100,41 +112,54 @@ function Analytics() {
             </SuiBox>
 
             <SuiBox>
-              <Card style={{ borderRadius: 0 }}>
-                <TableComponent></TableComponent>
-                <ChatbotButton></ChatbotButton>
-                <SuiBox sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: "0px" }} >
-                </SuiBox>
-              </Card>
+            <Box>
+                <Card style={{ borderRadius: 0 }}>
+                  {isInstrumentOpen && (
+                    <>
+                      <TableComponent></TableComponent>
+                      <ChatbotButton></ChatbotButton>
+                    </>
+                  )}
+                  <SuiBox sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: "0px" }} >
+                  </SuiBox>
+                </Card>
+              </Box>
+           
 
             </SuiBox>
-            <Card style={{ borderRadius: 0 }}>
-              <SuiBox>
+            <SuiBox>
+        <Box>
+          <Card style={{ borderRadius: 0 }}>
+            {isCountryOpen && (
+              <>
                 <TableComponent></TableComponent>
                 <ChatbotButton></ChatbotButton>
-              </SuiBox>
-            </Card>
-            <Card style={{ borderRadius: 0, boxShadow: 'none' }}>
-              <SuiBox mb={0}>
-                <TableComponent></TableComponent>
-                <ChatbotButton></ChatbotButton>
-              </SuiBox>
-            </Card>
+              </>
+            )}
+            <SuiBox sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: "0px" }} />
+          </Card>
+        </Box>
+      </SuiBox>
 
-            <SuiBox mb={3}>
-              <Grid container spacing={3}>
-                <Grid item xs={8}>
-                  <Card className="h-100" style={{ paddingLeft: '10px' }}>
-                  </Card>
-                </Grid>
-                <Grid item xs={4}>
-                  <detailsCard></detailsCard>
-                </Grid>
-              </Grid>
-            </SuiBox>
+
+      <SuiBox>
+        <Box>
+          <Card style={{ borderRadius: 0 }}>
+            {isSectorOpen && (
+              <>
+                <TableComponent></TableComponent>
+                <ChatbotButton></ChatbotButton>
+              </>
+            )}
+            <SuiBox sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: "0px" }} />
+          </Card>
+        </Box>
+      </SuiBox>
 
           </Card>
         </SuiBox>
+        <PieChart></PieChart>
+
         <SuiBox mb={3}>
 
           <Card>
@@ -154,7 +179,7 @@ function Analytics() {
               </LocalizationProvider>
             </SuiBox>
             <SuiTypography >
-              ----bar chart? both Instrument and Fund
+              <BarChart></BarChart>
             </SuiTypography>
           </Card>
         </SuiBox>
@@ -167,7 +192,7 @@ function Analytics() {
               </SuiTypography>
               <Box sx={{ marginLeft: "10px", marginTop: "12px" }}>
                 <FormControl fullWidth>
-                <DemoItem label="Top N"></DemoItem>
+                  <DemoItem label="Top N"></DemoItem>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"

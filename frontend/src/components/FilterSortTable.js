@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import SuiButton from "components/SuiButton";
 import SuiInput from "components/SuiInput";
 import { visuallyHidden } from '@mui/utils';
-import styles from "layouts/instruments/styles";
+import styles from "layouts/tables/styles";
 import { CSVLink } from "react-csv";
 
 function descendingComparator(a, b, orderBy) {
