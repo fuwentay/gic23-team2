@@ -41,13 +41,17 @@ function Analytics() {
   const classes = styles();
   const { columns: prCols, rows: prRows } = instrumentTable;
   const [value, setValue] = React.useState(dayjs('year-month-day'));
+  const [fundId, setFundId] = React.useState(1);
   const [instrument, setInstrument] = React.useState('');
   const [country, setCountry] = React.useState('');
   const [sector, setSector] = React.useState('');
   const [isCardOpen, setCardOpen] = useState(false);
   const [topn, setTopn] = React.useState('10');
+  const [isCheckedInstruform, setIsCheckedInstruform] = useState(false);
+  const [isCheckedCountryform, setIsCheckedCountryform] = useState(false);
+  const [isCheckedSectorform, setIsCheckedSectorform] = useState(false);
 
-  const handleChange = (event) => {
+  const handleChangeTopN = (event) => {
     setTopn(event.target.value);
   };
 
@@ -67,6 +71,45 @@ function Analytics() {
     setCardOpen(prevState => !prevState);
   };
 
+
+  function fetchAggregate(aggregate_key, id, date) {
+    fetch(`http://13.214.177.215:9000/analytics/${aggregate_key}/${id}/${date}`)
+      .then(response => response.json())
+      .then(data => {
+        const dataArray = JSON.parse(data.data);
+        setData(dataArray);
+      })
+      .catch(error => console.error('Error fetching messages:', error));
+  }
+
+  const handleCheckboxChange = (event) => {
+    const { id } = event.target;
+
+    switch (id) {
+      case 'instruform':
+        setIsCheckedInstruform(!isCheckedInstruform);
+        if (isCheckedInstruform)
+          fetchAggregate('instrumentId', fundId, dayjs())
+        break;
+      case 'countryform':
+        setIsCheckedCountryform(!isCheckedCountryform);
+        if (isCheckedCountryform)
+          fetchAggregate('country', fundId, dayjs())
+        break;
+      case 'sectorform':
+        setIsCheckedSectorform(!isCheckedSectorform);
+        if (isCheckedSectorform)
+          fetchAggregate('sector', fundId, dayjs())
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleChangeId = (event) => {
+    setFundId(event.target.value);
+  };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -80,13 +123,38 @@ function Analytics() {
                 </SuiTypography>
                 <Box sx={{ marginLeft: "10px", marginTop: "12px" }}>
                   <Box sx={{ minWidth: 100, display: 'flex', flexDirection: 'row' }}>
-                    <FormControlLabel control={<Checkbox defaultChecked />} label="Instruments" />
-                    <FormControlLabel control={<Checkbox defaultChecked />} label="Country" />
-                    <FormControlLabel control={<Checkbox defaultChecked />} label="Sector" />
+                    <FormControlLabel
+                      id="instruform"
+                      control={<Checkbox checked={isCheckedInstruform} onChange={handleCheckboxChange} />}
+                      label="Instruments"
+                    />
+                    <FormControlLabel
+                      id="countryform"
+                      control={<Checkbox checked={isCheckedCountryform} onChange={handleCheckboxChange} />}
+                      label="Country"
+                    />
+                    <FormControlLabel
+                      id="sectorform"
+                      control={<Checkbox checked={isCheckedSectorform} onChange={handleCheckboxChange} />}
+                      label="Sector"
+                    />
                   </Box>
                 </Box>
               </Box>
-
+              <FormControl width='40px'>
+                <DemoItem label="Fund ID"></DemoItem>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={topn}
+                  label="Top N"
+                  onChange={handleChangeId}
+                >
+                  <MenuItem value={10}>10</MenuItem>
+                  <MenuItem value={20}>20</MenuItem>
+                  <MenuItem value={30}>30</MenuItem>
+                </Select>
+              </FormControl>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DesktopDatePicker']}>
                   <DemoItem label="Start Date" sx={{ mb: "2px" }} >
@@ -167,13 +235,13 @@ function Analytics() {
               </SuiTypography>
               <Box sx={{ marginLeft: "10px", marginTop: "12px" }}>
                 <FormControl fullWidth>
-                <DemoItem label="Top N"></DemoItem>
+                  <DemoItem label="Top N"></DemoItem>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={topn}
                     label="Top N"
-                    onChange={handleChange}
+                    onChange={handleChangeTopN}
                   >
                     <MenuItem value={10}>10</MenuItem>
                     <MenuItem value={20}>20</MenuItem>
