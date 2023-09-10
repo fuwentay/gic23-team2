@@ -22,34 +22,6 @@ function SidenavCard() {
 
   return (
     <Card className={classes.card}>
-      <CardContent className={classes.card_content}>
-        <SuiBox customClass={classes.card_iconBox}>
-          <Icon className={classes.card_icon} fontSize="default">
-            star
-          </Icon>
-        </SuiBox>
-        <SuiBox>
-          <SuiTypography variant="h6" textColor="white">
-            Need help?
-          </SuiTypography>
-          <SuiBox mb={1.5} mt={-1}>
-            <SuiTypography variant="caption" textColor="white" fontWeight="medium">
-              Please check our docs
-            </SuiTypography>
-          </SuiBox>
-          <SuiButton
-            component={Link}
-            href="https://www.creative-tim.com/learning-lab/react/quick-start/soft-ui-dashboard"
-            target="_blank"
-            rel="noreferrer"
-            size="small"
-            color="default"
-            fullWidth
-          >
-            documentation
-          </SuiButton>
-        </SuiBox>
-      </CardContent>
     </Card>
   );
 }
