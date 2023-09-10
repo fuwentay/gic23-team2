@@ -1,8 +1,8 @@
 from bson import json_util
 from bson.objectid import ObjectId
 from response import make_json_response
-# from database import db
-from documentdb import db
+from database import db
+# from documentdb import db
 
 positionsCollection = db.positions
 priceCollection = db.price
