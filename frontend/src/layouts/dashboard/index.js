@@ -26,6 +26,7 @@ import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import LineGraph from "./components/LineGraph";
 
 function Dashboard() {
   const { size } = typography;
@@ -38,7 +39,7 @@ function Dashboard() {
       type: 'pie'
     },
     title: {
-      text: 'Browser market shares in May, 2020',
+      text: 'Positions by Country',
       align: 'left'
     },
     tooltip: {
@@ -60,22 +61,21 @@ function Dashboard() {
       }
     },
     series: [{
-      name: 'Brands',
+      name: 'Country',
       colorByPoint: true,
       data: [
-        { name: 'Chrome', y: 70.67, sliced: true, selected: true },
-        { name: 'Edge', y: 14.77 },
-        { name: 'Firefox', y: 4.86 },
-        { name: 'Safari', y: 2.63 },
-        { name: 'Internet Explorer', y: 1.53 },
-        { name: 'Opera', y: 1.40 },
-        { name: 'Sogou Explorer', y: 0.84 },
-        { name: 'QQ', y: 0.51 },
-        { name: 'Other', y: 2.6 },
+        { name: 'AU', y: 10.67, sliced: true, selected: true },
+        { name: 'DE', y: 14.77 },
+        { name: 'CN', y: 4.86 },
+        { name: 'UK', y: 15.63 },
+        { name: 'JP', y: 11.63 },
+        { name: 'SM', y: 5.63 },
+        { name: 'BB', y: 4.63 },
+        { name: 'IM', y: 2.63 },
       ]
     }]
   };
-  
+
 
   return (
     <DashboardLayout>
@@ -122,10 +122,11 @@ function Dashboard() {
         </SuiBox> */}
 
         <SuiBox mb={3}>
-        <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-      />
+          <HighchartsReact
+            highcharts={Highcharts}
+            options={options}
+          />
+          <LineGraph />
 
         </SuiBox>
         {/* <SuiBox mb={3}>

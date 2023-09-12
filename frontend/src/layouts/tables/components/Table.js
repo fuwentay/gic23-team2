@@ -67,7 +67,7 @@ function Table() {
                     <Card>
                         <SuiBox customClass={classes.tables_table}>
                             <FilterSortTable
-                                title="Inserted Rows"
+                                // title="Inserted Rows"
                                 headers={getColumns()}
                                 rows={insertedRows} />
                         </SuiBox>

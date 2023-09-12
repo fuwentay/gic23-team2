@@ -197,7 +197,7 @@ export default function EnhancedTable(props) {
                 title={title}
                 filter={filter}
                 setFilter={setFilter}
-                rows={filteredRows} />
+                rows={rows} />
             <TableContainer>
                 <Table
                     sx={{ minWidth: 750 }}

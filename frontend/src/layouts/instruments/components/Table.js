@@ -54,7 +54,7 @@ function Table({ data = [] }) {
         const rows = data.map(item => {
             const { _id, ...rowData } = item;
 
-            if (_id && _id.$oid) {
+            if (_id != undefined && _id.$oid != undefined) {
                 rowData._id = _id.$oid;
             }
 
@@ -95,7 +95,7 @@ function Table({ data = [] }) {
                     <Card>
                         <SuiBox customClass={classes.tables_table}>
                             <FilterSortTable
-                                title="Inserted Rows"
+                                // title="Inserted Rows"
                                 headers={getColumns()}
                                 rows={insertedRows} />
                         </SuiBox>

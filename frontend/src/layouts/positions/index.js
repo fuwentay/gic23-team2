@@ -29,6 +29,19 @@ import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData"
 
 import Table from "../instruments/components/Table"
 
+const data = [
+  { fundId: 1, fundName: "Applebead" },
+  { fundId: 2, fundName: "Belaware" },
+  { fundId: 3, fundName: "Fund Whitestone" },
+  { fundId: 4, fundName: "Leeder" },
+  { fundId: 5, fundName: "Magnum" },
+  { fundId: 6, fundName: "Wallington" },
+  { fundId: 7, fundName: "Gohen" },
+  { fundId: 8, fundName: "Catalysm" },
+  { fundId: 9, fundName: "Trustmind" },
+  { fundId: 10, fundName: "Virtous" }
+]
+
 function Positions() {
   const { size } = typography;
   const { chart, items } = reportsBarChartData;
@@ -36,7 +49,7 @@ function Positions() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <Table></Table>
+      <Table data={data} />
     </DashboardLayout>
   );
 }

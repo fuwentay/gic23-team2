@@ -9,14 +9,14 @@ function BarChart() {
             type: 'bar'
         },
         title: {
-            text:""
+            text: ""
         },
         subtitle: {
             text: '',
             align: 'left'
         },
         xAxis: {
-            categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+            categories: ['Gohen', 'Catalysm', 'Trustmind', 'Virtous', 'Magnum'],
             title: {
                 text: null
             },
@@ -26,7 +26,7 @@ function BarChart() {
         yAxis: {
             min: 0,
             title: {
-                text: 'Population (millions)',
+                text: 'Total Market Value',
                 align: 'high'
             },
             labels: {
@@ -51,13 +51,13 @@ function BarChart() {
             enabled: false
         },
         series: [{
-            name: 'Year 1990',
+            name: 'January',
             data: [631, 727, 3202, 721, 26]
         }, {
-            name: 'Year 2000',
+            name: 'February',
             data: [814, 841, 3714, 726, 31]
         }, {
-            name: 'Year 2010',
+            name: 'March',
             data: [1044, 944, 4170, 735, 40]
         },]
     };

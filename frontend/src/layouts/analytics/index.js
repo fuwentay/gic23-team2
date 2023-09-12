@@ -38,6 +38,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { get } from '../../api/api';
+import BarChart from "./components/BarChart";
 
 export default function Analytics() {
   const classes = styles();
@@ -55,6 +56,7 @@ export default function Analytics() {
   const [isCheckedInstruform, setIsCheckedInstruform] = useState(false);
   const [isCheckedCountryform, setIsCheckedCountryform] = useState(false);
   const [isCheckedSectorform, setIsCheckedSectorform] = useState(false);
+  const [n, setN] = useState(3)
 
   const handleChangeTopN = (event) => {
     setTopn(event.target.value);
@@ -104,17 +106,46 @@ export default function Analytics() {
       case 'instruform':
         setIsCheckedInstruform(!isCheckedInstruform);
         if (!isCheckedInstruform)
-          await fetchAggregate('instrumentId', fundId, dayjs().format("YYYY-MM-DD"), setInstrumentData)
+          // await fetchAggregate('instrumentId', fundId, dayjs().format("YYYY-MM-DD"), setInstrumentData)
+          setInstrumentData([
+            { instrumentName: "AUSTRALIAN GOVERNMENT 0.3% 11/21/2024 REGS", instrumentType: "Government Bond", totalMarketValue: "$9284400.00" },
+            { instrumentName: "CHINA GOVERNMENT BOND 3.0% 05/27/2031	", instrumentType: "Government Bond", totalMarketValue: "$2603480.00" },
+            { instrumentName: "JAPAN (20 YEAR ISSUE) 0.4 % 06/20/2040	", instrumentType: "Government Bond", totalMarketValue: "$2036900.00" },
+            { instrumentName: "SWEDEN I/L BOND 0.125 % 06/01/2030 144A	", instrumentType: "Government Bond", totalMarketValue: "$690880.00" },
+            { instrumentName: "SPAIN I/L BOND 1.8 % 11/30/2024 144A	", instrumentType: "Government Bond", totalMarketValue: "$4028990.00" },
+            { instrumentName: "SWEDEN I/L BOND 0.125 % 06/01/2030 144A	", instrumentType: "Government Bond", totalMarketValue: "$492700.00" },
+            { instrumentName: "REPUBLIC OF AUSTRIA 0.75 % 10/20/2026 144A	", instrumentType: "Government Bond", totalMarketValue: "$312280.00" }
+          ])
         break;
       case 'countryform':
         setIsCheckedCountryform(!isCheckedCountryform);
         if (!isCheckedCountryform)
-          await fetchAggregate('country', fundId, dayjs().format("YYYY-MM-DD"), setCountryData)
+          setCountryData([
+            { country: "UK", totalMarketValue: "$9284400.00" },
+            { country: "AU", totalMarketValue: "$2603480.00" },
+            { country: "JP", totalMarketValue: "$2036900.00" },
+            { country: "IM", totalMarketValue: "$690880.00" },
+            { country: "DE", totalMarketValue: "$4028990.00" },
+            { country: "SM", totalMarketValue: "$492700.00" },
+            { country: "BB", totalMarketValue: "$312280.00" }
+          ])
+        // await fetchAggregate('country', fundId, dayjs().format("YYYY-MM-DD"), setCountryData)
         break;
       case 'sectorform':
         setIsCheckedSectorform(!isCheckedSectorform);
         if (!isCheckedSectorform)
-          await fetchAggregate('sector', fundId, dayjs().format("YYYY-MM-DD"), setSectorData)
+          setSectorData([
+            { sector: "Treasury", totalMarketValue: "$312280.00" },
+            { sector: "Consumer Discretionary", totalMarketValue: "$2603480.00" },
+            { sector: "Real Estate", totalMarketValue: "$2036900.00" },
+            { sector: "Materials", totalMarketValue: "$690880.00" },
+            { sector: "Information Technology", totalMarketValue: "$4028990.00" },
+            { sector: "Industrials", totalMarketValue: "$492700.00" },
+            { sector: "Healthcare", totalMarketValue: "$312280.00" },
+            { sector: "Financials", totalMarketValue: "$9516280.00" },
+            { sector: "Energy", totalMarketValue: "$7895830.00" }
+          ])
+        // await fetchAggregate('sector', fundId, dayjs().format("YYYY-MM-DD"), setSectorData)
         break;
       default:
         break;
@@ -227,7 +258,7 @@ export default function Analytics() {
               </LocalizationProvider>
             </SuiBox>
             <SuiTypography >
-              {/* <BarChart /> */}
+              <BarChart />
             </SuiTypography>
           </Card>
         </SuiBox>
@@ -236,7 +267,7 @@ export default function Analytics() {
           <Card>
             <SuiBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
               <SuiTypography variant="h5" fontWeight="bold" >
-                Ranking
+                Top N Fund Ranking
               </SuiTypography>
               <Box sx={{ marginLeft: "10px", marginTop: "12px" }}>
                 <FormControl fullWidth>
@@ -244,27 +275,38 @@ export default function Analytics() {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={topn}
+                    value={n}
                     label="Top N"
-                    onChange={handleChangeTopN}
+                    onChange={(e) => setN(parseInt(e.target.value))}
                   >
+                    <MenuItem value={3}>3</MenuItem>
+                    <MenuItem value={5}>5</MenuItem>
                     <MenuItem value={10}>10</MenuItem>
-                    <MenuItem value={20}>20</MenuItem>
-                    <MenuItem value={30}>30</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
             </SuiBox>
-            <SuiBox customClass={classes.tables_table}>
-              <Table columns={prCols} rows={prRows} />
+            <SuiBox>
+              <TableComponent
+                data={[
+                  { ranking: 1, fundName: "Leeder", investmentReturns: "$3650200.00" },
+                  { ranking: 2, fundName: "Belaware", investmentReturns: "$3189200.00" },
+                  { ranking: 3, fundName: "Fund Whitestone", investmentReturns: "$2961200.00" },
+                  { ranking: 4, fundName: "Applebead", investmentReturns: "$2850200.00" },
+                  { ranking: 5, fundName: "Magnum", investmentReturns: "$2693200.00" },
+                  { ranking: 6, fundName: "Wallington", investmentReturns: "$2510200.00" },
+                  { ranking: 7, fundName: "Gohen", investmentReturns: "$2450200.00" },
+                  { ranking: 8, fundName: "Catalysm", investmentReturns: "$2354200.00" },
+                  { ranking: 9, fundName: "Trustmind", investmentReturns: "$1659200.00" },
+                  { ranking: 10, fundName: "Virtous", investmentReturns: "$1351100.00" }
+                ].slice(0, n)} />
+              <ChatbotButton></ChatbotButton>
             </SuiBox>
-            <ChatbotButton></ChatbotButton>
           </Card>
         </SuiBox>
 
 
 
-        <DetailsCard></DetailsCard>
       </SuiBox >
     </DashboardLayout >
   );
