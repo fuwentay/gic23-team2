@@ -1,2 +1,5 @@
-# gic23-team2
-Our 24-hour hackathon project that helps senior managers gain more control and insights into investment assets.
+# GIC #CodeToImpact 2023
+
+## Third place overall
+
+24-hour hackathon web app that helps Senior Managers gain more control and insights into investment assets.
